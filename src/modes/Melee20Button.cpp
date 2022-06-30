@@ -14,7 +14,10 @@ Melee20Button::Melee20Button(socd::SocdType socd_type) : ControllerMode(socd_typ
     };
 
     // B0XX: 6375 3750 = 51 30 = 30.47°
-    wavedash_angle = { .x = 51, .y = 30 };
+    wavedash_angle_mx = { .x = 51, .y = 30 };
+
+    // B0XX: 5000 8500 = 40 68 = 59.53°
+    wavedash_angle_my = { .x = 40, .y = 68 };
 
     horizontal_socd = false;
 }
@@ -97,8 +100,8 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             outputs.leftStickX = 128 + (directions.x * 59);
             outputs.leftStickY = 128 + (directions.y * 25);
             if (shield_button_pressed) {
-                outputs.leftStickX = 128 + (directions.x * wavedash_angle.x);
-                outputs.leftStickY = 128 + (directions.y * wavedash_angle.y);
+                outputs.leftStickX = 128 + (directions.x * wavedash_angle_mx.x);
+                outputs.leftStickY = 128 + (directions.y * wavedash_angle_mx.y);
             }
         }
 
@@ -181,10 +184,9 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                 // MY + L, R, LS, and MS + q1/2 = 4750 8750 = 38 70
                 outputs.leftStickX = 128 + (directions.x * 38);
                 outputs.leftStickY = 128 + (directions.y * 70);
-                // MY + L, R, LS, and MS + q3/4 = 5000 8500 = 40 68
                 if (directions.y == -1) {
-                    outputs.leftStickX = 128 + (directions.x * 40);
-                    outputs.leftStickY = 128 + (directions.y * 68);
+                    outputs.leftStickX = 128 + (directions.x * wavedash_angle_my.x);
+                    outputs.leftStickY = 128 + (directions.y * wavedash_angle_my.y);
                 }
             }
         }
