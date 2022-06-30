@@ -13,6 +13,8 @@ class Melee20Button : public ControllerMode {
     virtual void UpdateDigitalOutputs(InputState &inputs, OutputState &outputs);
     virtual void UpdateAnalogOutputs(InputState &inputs, OutputState &outputs);
 
+    OutputAngle wavedash_angle;
+
   private:
     bool horizontal_socd;
 

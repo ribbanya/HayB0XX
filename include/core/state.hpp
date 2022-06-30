@@ -78,4 +78,9 @@ typedef struct outputstate {
     uint8_t triggerLAnalog = 0;
 } OutputState;
 
+typedef struct {
+    int8_t x;
+    int8_t y;
+} OutputAngle;
+
 #endif

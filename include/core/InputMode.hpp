@@ -16,6 +16,7 @@ class InputMode {
      * SOCD cleaning mode. */
     socd::SocdType _socd_type;
 
+    virtual void RemapInputs(InputState &inputs);
     virtual void HandleSocd(InputState &inputs);
 
   private:

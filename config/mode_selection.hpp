@@ -4,10 +4,10 @@
 #include "core/state.hpp"
 #include "modes/DefaultKeyboardMode.hpp"
 #include "modes/FgcMode.hpp"
+#include "modes/MeleePuff20Button.hpp"
+#include "modes/MeleePeach20Button.hpp"
 #include "modes/Melee20Button.hpp"
-#include "modes/ProjectM.hpp"
 #include "modes/RivalsOfAether.hpp"
-#include "modes/Ultimate.hpp"
 
 extern KeyboardMode *current_kb_mode;
 
@@ -34,11 +34,11 @@ void select_mode(CommunicationBackend *backend) {
     InputState &inputs = backend->GetInputs();
     if (inputs.mod_x && !inputs.mod_y && inputs.start) {
         if (inputs.l) {
-            set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
+            set_mode(backend, new MeleePuff20Button(socd::SOCD_2IP_NO_REAC));
         } else if (inputs.left) {
-            set_mode(backend, new ProjectM(socd::SOCD_2IP_NO_REAC, true, false));
+            set_mode(backend, new MeleePeach20Button(socd::SOCD_2IP_NO_REAC));
         } else if (inputs.down) {
-            set_mode(backend, new Ultimate(socd::SOCD_2IP));
+            set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
         } else if (inputs.right) {
             set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
         } else if (inputs.b) {

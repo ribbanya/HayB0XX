@@ -6,6 +6,7 @@ ControllerMode::ControllerMode(socd::SocdType socd_type) : InputMode(socd_type) 
 }
 
 void ControllerMode::UpdateOutputs(InputState &inputs, OutputState &outputs) {
+    RemapInputs(inputs);
     HandleSocd(inputs);
     UpdateDigitalOutputs(inputs, outputs);
     UpdateAnalogOutputs(inputs, outputs);

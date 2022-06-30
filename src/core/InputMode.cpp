@@ -12,6 +12,8 @@ InputMode::~InputMode() {
     delete[] _socd_states;
 }
 
+void InputMode::RemapInputs(InputState &inputs) { }
+
 void InputMode::HandleSocd(InputState &inputs) {
     if (_socd_pairs == nullptr) {
         return;

@@ -17,13 +17,15 @@ size_t backend_count;
 KeyboardMode *current_kb_mode = nullptr;
 
 GpioButtonMapping button_mappings[] = {
-    {&InputState::l,            47},
+    { &InputState::l,           47},
     { &InputState::left,        24},
     { &InputState::down,        23},
     { &InputState::right,       25},
 
     { &InputState::mod_x,       28},
     { &InputState::mod_y,       29},
+    { &InputState::select,      30},
+    { &InputState::home,        31},
 
     { &InputState::start,       50},
 
@@ -70,20 +72,20 @@ void setup() {
 
     CommunicationBackend *primary_backend = nullptr;
     if (button_holds.a) {
-        // Hold A on plugin for GameCube adapter.
-        primary_backend =
-            new GamecubeBackend(input_sources, input_source_count, 0, pinout.joybus_data);
-    } else {
-        // Default to GameCube/Wii.
+        // Hold A on plugin for GameCube/Wii.
         primary_backend =
             new GamecubeBackend(input_sources, input_source_count, 125, pinout.joybus_data);
+    } else {
+        // Default to GameCube adapter.
+        primary_backend =
+            new GamecubeBackend(input_sources, input_source_count, 0, pinout.joybus_data);
     }
 
     backend_count = 1;
     backends = new CommunicationBackend *[backend_count] { primary_backend };
 
     // Default to Melee mode.
-    primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP_NO_REAC));
+    primary_backend->SetGameMode(new MeleePuff20Button(socd::SOCD_2IP_NO_REAC));
 }
 
 void loop() {
