@@ -17,33 +17,37 @@ size_t backend_count;
 KeyboardMode *current_kb_mode = nullptr;
 
 GpioButtonMapping button_mappings[] = {
-    { &InputState::l,           47},
-    { &InputState::left,        24},
-    { &InputState::down,        23},
-    { &InputState::right,       25},
+    { &InputState::l,             47},
+    { &InputState::left,          24},
+    { &InputState::down,          23},
+    { &InputState::right,         25},
 
-    { &InputState::mod_x,       28},
-    { &InputState::mod_y,       29},
-    { &InputState::select,      30},
-    { &InputState::home,        31},
+    { &InputState::mod_x,         28},
+    { &InputState::mod_y,         29},
+    { &InputState::select,        30},
+    { &InputState::home,          31},
 
-    { &InputState::start,       50},
+    { &InputState::start,         50},
 
-    { &InputState::c_left,      36},
-    { &InputState::c_up,        34},
-    { &InputState::c_down,      46},
-    { &InputState::a,           35},
-    { &InputState::c_right,     37},
+    { &InputState::c_left,        36},
+    { &InputState::c_up,          34},
+    { &InputState::c_down,        46},
+    { &InputState::a,             35},
+    { &InputState::c_right,       37},
 
-    { &InputState::b,           44},
-    { &InputState::x,           42},
-    { &InputState::z,           7 },
-    { &InputState::up,          45},
+    { &InputState::b,             44},
+    { &InputState::x,             42},
+    { &InputState::z,             7 },
+    { &InputState::up,            45},
 
-    { &InputState::r,           41},
-    { &InputState::y,           43},
-    { &InputState::lightshield, 40},
-    { &InputState::midshield,   12},
+    { &InputState::r,             41},
+    { &InputState::y,             43},
+    { &InputState::lightshield,   40},
+    { &InputState::midshield,     12},
+
+    { &InputState::toggle_dpad,   51},
+    { &InputState::toggle_mode_1, 38},
+    { &InputState::toggle_mode_2, 39}
 };
 size_t button_count = sizeof(button_mappings) / sizeof(GpioButtonMapping);
 
@@ -85,11 +89,13 @@ void setup() {
     backends = new CommunicationBackend *[backend_count] { primary_backend };
 
     // Default to Melee mode.
-    primary_backend->SetGameMode(new MeleePuff20Button(socd::SOCD_2IP_NO_REAC));
+    select_mode(primary_backend, 1);
 }
 
 void loop() {
-    select_mode(backends[0]);
+    CommunicationBackend *backend = backends[0];
+
+    select_mode(backend, get_mode_id_from_toggles(backend->GetInputs()));
 
     for (size_t i = 0; i < backend_count; i++) {
         backends[i]->SendReport();
