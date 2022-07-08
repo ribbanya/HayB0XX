@@ -1,3 +1,8 @@
+> ## About this fork
+> This is a heavily modified version of HayBox for the PikaPal, a custom box controller designed specifically for Pikachu in Melee.
+> 
+> The PikaPal project is in its early stages and is undergoing active development.
+
 # HayBox
 
 HayBox is a modular, cross-platform firmware for digital or mixed analog/digital controllers, primarily targeted at [B0XX](https://b0xx.com)-style
@@ -38,23 +43,38 @@ Features include:
 
 ## Table of Contents
 
-* [Getting Started](#getting-started)
-  * [Requirements](#requirements)
-  * [Installation](#installation)
-* [Usage](#usage)
-  * [Default button holds](#default-button-holds)
-  * [Dolphin setup](#dolphin-setup)
-* [Configuration](#configuration)
-  * [Console/gamemode selection bindings](#consolegamemode-selection-bindings)
-  * [Creating custom input modes](#creating-custom-input-modes)
-  * [Mod X lightshield and R shield tilt](#mod-x-lightshield-and-r-shield-tilt)
-  * [Project M/Project+ mode](#project-mproject-mode)
-  * [Input sources](#input-sources)
-  * [Using the Pico's second core](#using-the-picos-second-core)
-* [Troubleshooting](#troubleshooting)
-* [Contributing](#contributing)
-* [Contributors](#contributors)
-* [License](#license)
+- [HayBox](#haybox)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Requirements](#requirements)
+    - [Installation](#installation)
+  - [Usage](#usage)
+    - [Default button holds](#default-button-holds)
+      - [Pico bootsel mode](#pico-bootsel-mode)
+      - [Brook board passthrough mode](#brook-board-passthrough-mode)
+      - [Communication backends (console selection)](#communication-backends-console-selection)
+      - [Game mode selection](#game-mode-selection)
+    - [Dolphin setup](#dolphin-setup)
+  - [Configuration](#configuration)
+    - [Console/gamemode selection bindings](#consolegamemode-selection-bindings)
+      - [Communication backends (console selection)](#communication-backends-console-selection-1)
+      - [Input modes](#input-modes)
+    - [Creating custom input modes](#creating-custom-input-modes)
+      - [Keyboard modes](#keyboard-modes)
+      - [Controller modes](#controller-modes)
+      - [SOCD](#socd)
+    - [Mod X lightshield and R shield tilt](#mod-x-lightshield-and-r-shield-tilt)
+    - [Project M/Project+ mode](#project-mproject-mode)
+    - [Input sources](#input-sources)
+    - [Using the Pico's second core](#using-the-picos-second-core)
+  - [Troubleshooting](#troubleshooting)
+    - [Controller not working with console or GameCube adapter](#controller-not-working-with-console-or-gamecube-adapter)
+  - [Contributing](#contributing)
+    - [Versioning](#versioning)
+  - [Built With](#built-with)
+  - [Contributors](#contributors)
+    - [Acknowledgments](#acknowledgments)
+  - [License](#license)
 
 ## Getting Started
 
