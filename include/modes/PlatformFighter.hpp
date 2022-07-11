@@ -5,6 +5,11 @@
 #include "core/socd.hpp"
 #include "core/state.hpp"
 
+typedef struct {
+    uint16_t x;
+    uint16_t y;
+} OutputCoords;
+
 class PlatformFighter : public ControllerMode {
   public:
     PlatformFighter(socd::SocdType socd_type, uint8_t analog_stick_length = 100);
