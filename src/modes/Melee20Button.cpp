@@ -1,7 +1,6 @@
 #include "modes/Melee20Button.hpp"
 
-Melee20Button::Melee20Button(socd::SocdType socd_type) 
-  : PlatformFighter(socd_type, 80) {}
+Melee20Button::Melee20Button(socd::SocdType socd_type) : PlatformFighter(socd_type, 80) {}
 
 void Melee20Button::UpdateDigitalOutputs() {
     _outputs->a = _inputs->a;
@@ -46,14 +45,14 @@ const MeleeCoords melee20button_coords = {
     .axis_mx = { 6625,  5375 },
     .axis_my = { 3375,  7375 },
 
-    .quadrant = { 0000,  0000 },
+    .quadrant = { 7000,  7000 }, // 45°
     .quadrant_mx = { 7375,  3125 }, // 22.96377°
     .quadrant_my = { 3125,  7375 }, // 67.03623°
 
-    .airdodge_quadrant = { 0000,  0000 },
     .airdodge_quadrant12 = { 7000,  7000 }, // 45°
     .airdodge_quadrant34 = { 7000,  6875 }, // 44.48384°
-    .airdodge_quadrant_mx = { 6375,  3750 }, // 30.46554°
+    .airdodge_quadrant12_mx = { 6375,  3750 }, // 30.46554°
+    .airdodge_quadrant34_mx = { 6375,  3750 }, // 30.46554°
     .airdodge_quadrant12_my = { 4750,  8750 }, // 61.50436°
     .airdodge_quadrant34_my = { 5000,  8500 }, // 59.53446°
 
@@ -91,8 +90,11 @@ void Melee20Button::UpdateAnalogOutputs() {
     bool shield_button_pressed = _inputs->l || _inputs->r || _inputs->lightshield || _inputs->midshield;
     if (directions.diagonal) {
         SetLeftStick(coords.quadrant);
-        if (directions.y < 0 && shield_button_pressed) {
-            SetLeftStick(coords.airdodge_quadrant34); // Shield drop
+        if (shield_button_pressed) {
+            SetLeftStick(coords.airdodge_quadrant12);
+            if (directions.y < 0) {
+                SetLeftStick(coords.airdodge_quadrant34);
+            }
         }
     }
 
@@ -106,7 +108,10 @@ void Melee20Button::UpdateAnalogOutputs() {
         if (directions.diagonal) {
             SetLeftStick(coords.quadrant_mx);
             if (shield_button_pressed) {
-                SetLeftStick(coords.airdodge_quadrant_mx);
+                SetLeftStick(coords.airdodge_quadrant12_mx);
+                if (directions.y < 0) {
+                    SetLeftStick(coords.airdodge_quadrant34_mx);
+                }
             }
         }
 

@@ -23,10 +23,10 @@ typedef struct melee_coords {
     OutputCoords quadrant_mx;
     OutputCoords quadrant_my;
 
-    OutputCoords airdodge_quadrant;
     OutputCoords airdodge_quadrant12;
     OutputCoords airdodge_quadrant34;
-    OutputCoords airdodge_quadrant_mx;
+    OutputCoords airdodge_quadrant12_mx;
+    OutputCoords airdodge_quadrant34_mx;
     OutputCoords airdodge_quadrant12_my;
     OutputCoords airdodge_quadrant34_my;
 
