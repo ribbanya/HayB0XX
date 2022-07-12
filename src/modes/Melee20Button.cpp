@@ -1,7 +1,7 @@
 #include "modes/Melee20Button.hpp"
 
 Melee20Button::Melee20Button(socd::SocdType socd_type) 
-    : PlatformFighter(socd_type, 80) { }
+  : PlatformFighter(socd_type, 80) {}
 
 void Melee20Button::UpdateDigitalOutputs() {
     _outputs->a = _inputs->a;
@@ -32,131 +32,171 @@ void Melee20Button::UpdateDigitalOutputs() {
         _outputs->dpadRight = true;
 }
 
+const MeleeCoords melee20button_coords = {
+    .trigger_light = 49,
+    .trigger_mid = 94,
+    .trigger_hard = 140,
+
+    .horizontal_ledgedash = 10000,
+    .horizontal_b_my = 10000,
+
+    .origin = {0000,   0000 },
+
+    .axis = { 10000, 10000},
+    .axis_mx = { 6625,  5375 },
+    .axis_my = { 3375,  7375 },
+
+    .quadrant = { 0000,  0000 },
+    .quadrant_mx = { 7375,  3125 }, // 22.96377°
+    .quadrant_my = { 3125,  7375 }, // 67.03623°
+
+    .airdodge_quadrant = { 0000,  0000 },
+    .airdodge_quadrant12 = { 7000,  7000 }, // 45°
+    .airdodge_quadrant34 = { 7000,  6875 }, // 44.48384°
+    .airdodge_quadrant_mx = { 6375,  3750 }, // 30.46554°
+    .airdodge_quadrant12_my = { 4750,  8750 }, // 61.50436°
+    .airdodge_quadrant34_my = { 5000,  8500 }, // 59.53446°
+
+    .quadrant_mx_cd = { 7000,  3625 }, // 27.37104°
+    .quadrant_mx_cl = { 7875,  4875 }, // 31.77828°
+    .quadrant_mx_cu = { 7000,  5125 }, // 36.18552°
+    .quadrant_mx_cr = { 6125,  5250 }, // 40.59276°
+
+    .quadrant_my_cr = { 6375,  7625 }, // 49.40724°
+    .quadrant_my_cu = { 5125,  7000 }, // 53.81448°
+    .quadrant_my_cl = { 4875,  7875 }, // 58.22172°
+    .quadrant_my_cd = { 3625,  7000 }, // 62.62896°
+
+    .quadrant_b_mx = { 9125,  3875 }, // 22.9638°
+    .quadrant_b_mx_cd = { 6375,  5375 }, // 40.59276°
+    .quadrant_b_mx_cl = { 7375,  5375 }, // 36.18552°
+    .quadrant_b_mx_cu = { 8500,  5250 }, // 31.77828°
+    .quadrant_b_mx_cr = { 8750,  4500 }, // 27.37104°
+
+    .quadrant_b_my = { 3875,  9125 }, // 67.0362°
+    .quadrant_b_my_cr = { 5875,  7125 }, // 49.40724°
+    .quadrant_b_my_cu = { 5875,  8000 }, // 53.81448°
+    .quadrant_b_my_cl = { 5250,  8500 }, // 58.22172°
+    .quadrant_b_my_cd = { 4500,  8750 }, // 62.62896°
+
+    .c_origin = { 0000,  0000 }, // 0°
+    .c_quadrant = { 5250,  8500 }, // 58.29857°
+    .c_fsmash = { 8500,  5250 }, // 31.70143°
+};
+
 void Melee20Button::UpdateAnalogOutputs() {
+    const MeleeCoords &coords = melee20button_coords;
     UpdateDirections();
 
     bool shield_button_pressed = _inputs->l || _inputs->r || _inputs->lightshield || _inputs->midshield;
     if (directions.diagonal) {
-        // L, R, LS, and MS + q1/2
-        SetLeftStick({7000, 7000}); // 45°
-
-        // L, R, LS, and MS + q3/4 = Vanilla shield drop
+        SetLeftStick(coords.quadrant);
         if (directions.y < 0 && shield_button_pressed) {
-            SetLeftStick({7000, 6875}); // 44.48384°
+            SetLeftStick(coords.airdodge_quadrant34); // Shield drop
         }
     }
 
     if (_inputs->mod_x) {
-        // MX + Horizontal (even if shield is held)
         if (directions.horizontal) {
-            SetLeftStickX(6625);
+            SetLeftStickX(coords.axis_mx.x);
         }
-        // MX + Vertical (even if shield is held)
         if (directions.vertical) {
-            SetLeftStickY(5375);
+            SetLeftStickY(coords.axis_mx.y);
         }
         if (directions.diagonal) {
-            // MX + q1/2/3/4
-            SetLeftStick({7375, 3125}); // 22.96377°
+            SetLeftStick(coords.quadrant_mx);
             if (shield_button_pressed) {
-                SetLeftStick({6375, 3750}); // 30.46554°
+                SetLeftStick(coords.airdodge_quadrant_mx);
             }
         }
 
-        // Angled fsmash
         if (directions.cx != 0) {
-            SetAngledFSmash({8500, 5250}); // 31.70143°
+            SetAngledFSmash(coords.c_fsmash);
         }
 
-        /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick({7375, 3125}); // 22.9638°
+            SetLeftStick(coords.quadrant_mx);
             if (_inputs->c_down) {
-                SetLeftStick({7000, 3625}); // 27.37104°
+                SetLeftStick(coords.quadrant_mx_cd);
             }
             if (_inputs->c_left) {
-                SetLeftStick({7875, 4875}); // 31.77828°
+                SetLeftStick(coords.quadrant_mx_cl);
             }
             if (_inputs->c_up) {
-                SetLeftStick({7000, 5125}); // 36.18552°
+                SetLeftStick(coords.quadrant_mx_cu);
             }
             if (_inputs->c_right) {
-                SetLeftStick({6125, 5250}); // 40.59276°
+                SetLeftStick(coords.quadrant_mx_cr);
             }
 
-            /* Extended Up B Angles */
             if (_inputs->b) {
-                SetLeftStick({9125, 3875}); // 22.9638°
+                SetLeftStick(coords.quadrant_b_mx);
                 if (_inputs->c_down) {
-                    SetLeftStick({8750, 4500}); // 27.37104°
+                    SetLeftStick(coords.quadrant_b_mx_cd);
                 }
                 if (_inputs->c_left) {
-                    SetLeftStick({8500, 5250}); // 31.77828°
+                    SetLeftStick(coords.quadrant_b_mx_cl);
                 }
                 if (_inputs->c_up) {
-                    SetLeftStick({7375, 5375}); // 36.18552°
+                    SetLeftStick(coords.quadrant_b_mx_cu);
                 }
                 if (_inputs->c_right) {
-                    SetLeftStick({6375, 5375}); // 40.59276°
+                    SetLeftStick(coords.quadrant_b_mx_cr);
                 }
             }
         }
     }
 
     if (_inputs->mod_y) {
-        // MY + Horizontal (even if shield is held)
         if (directions.horizontal) {
-            SetLeftStickX(3375);
+            SetLeftStickX(coords.axis_my.x);
         }
-        // MY + Vertical (even if shield is held)
         if (directions.vertical) {
-            SetLeftStickY(7375);
+            SetLeftStickY(coords.axis_my.y);
         }
         if (directions.diagonal) {
-            SetLeftStick({3125, 7375}); // 67.03623°
+            SetLeftStick(coords.quadrant_my);
             if (shield_button_pressed) {
-                SetLeftStick({4750, 8750}); // 61.50436°
+                SetLeftStick(coords.airdodge_quadrant12_my);
                 if (directions.y < 0) {
-                    SetLeftStick({5000, 8500}); // 59.53446°
+                    SetLeftStick(coords.airdodge_quadrant34_my);
                 }
             }
         }
 
         // Turnaround neutral B nerf
         if (_inputs->b) {
-            SetLeftStickX(10000);
+            SetLeftStickX(coords.horizontal_b_my);
         }
 
-        /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick({3125, 7375}); // 67.03623°
+            SetLeftStick(coords.quadrant_my);
             if (_inputs->c_down) {
-                SetLeftStick({3625, 7000}); // 62.62896°
+                SetLeftStick(coords.quadrant_my_cd);
             }
             if (_inputs->c_left) {
-                SetLeftStick({4875, 7875}); // 58.22172°
+                SetLeftStick(coords.quadrant_my_cl);
             }
             if (_inputs->c_up) {
-                SetLeftStick({5125, 7000}); // 53.81448°
+                SetLeftStick(coords.quadrant_my_cu);
             }
             if (_inputs->c_right) {
-                SetLeftStick({6375, 7625}); // 49.40724°
+                SetLeftStick(coords.quadrant_my_cr);
             }
 
-            /* Extended Up B Angles */
             if (_inputs->b) {
-                SetLeftStick({3875, 9125}); // 67.0362°
+                SetLeftStick(coords.quadrant_b_my);
                 if (_inputs->c_down) {
-                    SetLeftStick({4500, 8750}); // 62.62896°
+                    SetLeftStick(coords.quadrant_b_my_cd);
                 }
                 if (_inputs->c_left) {
-                    SetLeftStick({5250, 8500}); // 58.22172°
+                    SetLeftStick(coords.quadrant_b_my_cl);
                 }
                 if (_inputs->c_up) {
-                    SetLeftStick({5875, 8000}); // 53.81448°
+                    SetLeftStick(coords.quadrant_b_my_cu);
                 }
                 if (_inputs->c_right) {
-                    SetLeftStick({5875, 7125}); // 49.40724°
+                    SetLeftStick(coords.quadrant_b_my_cr);
                 }
             }
         }
@@ -165,33 +205,32 @@ void Melee20Button::UpdateAnalogOutputs() {
     // C-stick ASDI Slideoff angle overrides any other C-stick modifiers (such as
     // angled fsmash).
     if (directions.cx != 0 && directions.cy != 0) {
-        SetCStick({5250, 8500}); // 58.29857°
+        SetCStick(coords.c_quadrant);
     }
 
     // Horizontal SOCD overrides X-axis modifiers (for ledgedash maximum jump
     // trajectory).
     if (_horizontal_socd && !directions.vertical) {
-        SetLeftStickX(10000);
+        SetLeftStickX(coords.horizontal_ledgedash);
     }
 
     if (_inputs->lightshield) {
-        _outputs->triggerRAnalog = 49;
+        _outputs->triggerRAnalog = coords.trigger_light;
     }
     if (_inputs->midshield) {
-        _outputs->triggerRAnalog = 94;
+        _outputs->triggerRAnalog = coords.trigger_mid;
     }
 
     if (_outputs->triggerLDigital) {
-        _outputs->triggerLAnalog = 140;
+        _outputs->triggerLAnalog = coords.trigger_hard;
     }
 
     if (_outputs->triggerRDigital) {
-        _outputs->triggerRAnalog = 140;
+        _outputs->triggerRAnalog = coords.trigger_hard;
     }
 
-    // Shut off c-stick when using dpad layer.
     if (_inputs->mod_x && _inputs->mod_y) {
-        SetCStick({0000, 0000}); // 0°
+        SetCStick(coords.c_origin);
     }
 
     // Nunchuk overrides left stick.
