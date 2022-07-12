@@ -51,7 +51,7 @@ void ProjectM::UpdateAnalogOutputs() {
 
     if (directions.diagonal) {
         if (directions.y > 0) {
-            SetLeftStick(8300, 9300); // 48.25195°
+            SetLeftStick({8300, 9300}); // 48.25195°
         }
     }
 
@@ -65,34 +65,34 @@ void ProjectM::UpdateAnalogOutputs() {
 
         // Angled fsmash
         if (directions.cx != 0) {
-            SetAngledFSmash(6500, 2300); // 19.48613°
+            SetAngledFSmash({6500, 2300}); // 19.48613°
         }
 
         if (directions.diagonal) {
-            SetLeftStick(7000, 3400); // 25.90651°
+            SetLeftStick({7000, 3400}); // 25.90651°
 
             if (_inputs->b) {
-                SetLeftStick(8500, 3100); // 20.03721°
+                SetLeftStick({8500, 3100}); // 20.03721°
             }
 
             if (_inputs->r) {
-                SetLeftStick(8200, 3500); // 23.11421°
+                SetLeftStick({8200, 3500}); // 23.11421°
             }
 
             if (_inputs->c_up) {
-                SetLeftStick(7700, 5500); // 35.53768°
+                SetLeftStick({7700, 5500}); // 35.53768°
             }
 
             if (_inputs->c_down) {
-                SetLeftStick(8200, 3600); // 23.70265°
+                SetLeftStick({8200, 3600}); // 23.70265°
             }
 
             if (_inputs->c_left) {
-                SetLeftStick(8400, 5000); // 30.76272°
+                SetLeftStick({8400, 5000}); // 30.76272°
             }
 
             if (_inputs->c_right) {
-                SetLeftStick(7200, 6100); // 40.27201°
+                SetLeftStick({7200, 6100}); // 40.27201°
             }
         }
     }
@@ -106,30 +106,30 @@ void ProjectM::UpdateAnalogOutputs() {
         }
 
         if (directions.diagonal) {
-            SetLeftStick(2800, 5800); // 64.23067°
+            SetLeftStick({2800, 5800}); // 64.23067°
 
             if (_inputs->b) {
-                SetLeftStick(2800, 8500); // 71.76751°
+                SetLeftStick({2800, 8500}); // 71.76751°
             }
 
             if (_inputs->r) {
-                SetLeftStick(5100, 8200); // 58.1204°
+                SetLeftStick({5100, 8200}); // 58.1204°
             }
 
             if (_inputs->c_up) {
-                SetLeftStick(5500, 7700); // 54.46232°
+                SetLeftStick({5500, 7700}); // 54.46232°
             }
 
             if (_inputs->c_down) {
-                SetLeftStick(3400, 8200); // 67.47943°
+                SetLeftStick({3400, 8200}); // 67.47943°
             }
 
             if (_inputs->c_left) {
-                SetLeftStick(4000, 8400); // 64.53665°
+                SetLeftStick({4000, 8400}); // 64.53665°
             }
 
             if (_inputs->c_right) {
-                SetLeftStick(6200, 7200); // 49.26789°
+                SetLeftStick({6200, 7200}); // 49.26789°
             }
         }
     }
@@ -139,7 +139,7 @@ void ProjectM::UpdateAnalogOutputs() {
     // We don't apply this for c-up + c-left/c-right in case we want to implement
     // C-stick nair somehow.
     if (directions.cx != 0 && directions.cy < 0) {
-        SetLeftStick(3500, 9800); // 70.34618°
+        SetLeftStick({3500, 9800}); // 70.34618°
     }
 
     // Horizontal SOCD overrides X-axis modifiers (for ledgedash maximum jump
@@ -171,7 +171,7 @@ void ProjectM::UpdateAnalogOutputs() {
 
     // Shut off c-stick when using dpad layer.
     if (_inputs->mod_x && _inputs->mod_y) {
-        SetCStick(0000, 0000);
+        SetCStick({0000, 0000});
     }
 
     // Nunchuk overrides left stick.

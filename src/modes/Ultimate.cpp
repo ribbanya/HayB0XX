@@ -55,54 +55,54 @@ void Ultimate::UpdateAnalogOutputs() {
         }
         if (directions.diagonal) {
             // MX + q1/2/3/4
-            SetLeftStick(5300, 3500); // 33.43987°
+            SetLeftStick({5300, 3500}); // 33.43987°
             if (shield_button_pressed) {
                 // MX + L, R, LS, and MS + q1/2/3/4
-                SetLeftStick(5100, 3000); // 30.46554°
+                SetLeftStick({5100, 3000}); // 30.46554°
             }
         }
 
         // Angled fsmash/ftilt with C-Stick + MX
         if (directions.cx != 0) {
-            SetAngledFSmash(12700, 5900); // 24.91802°
+            SetAngledFSmash({12700, 5900}); // 24.91802°
         }
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(5300, 3500); // 33.43987°
+            SetLeftStick({5300, 3500}); // 33.43987°
             if (_inputs->c_down) {
-                SetLeftStick(5300, 4300); // 39.05314°
+                SetLeftStick({5300, 4300}); // 39.05314°
             }
             if (_inputs->c_left) {
-                SetLeftStick(5300, 3900); // 36.34746°
+                SetLeftStick({5300, 3900}); // 36.34746°
             }
             if (_inputs->c_up) {
-                SetLeftStick(5300, 3100); // 30.32361°
+                SetLeftStick({5300, 3100}); // 30.32361°
             }
             if (_inputs->c_right) {
-                SetLeftStick(5300, 2800); // 27.84758°
+                SetLeftStick({5300, 2800}); // 27.84758°
             }
 
             /* Extended Up B Angles */
             if (_inputs->b) {
-                SetLeftStick(6700, 4400); // 33.29356°
+                SetLeftStick({6700, 4400}); // 33.29356°
                 if (_inputs->c_down) {
-                    SetLeftStick(6700, 5500); // 39.38242°
+                    SetLeftStick({6700, 5500}); // 39.38242°
                 }
                 if (_inputs->c_left) {
-                    SetLeftStick(6700, 4900); // 36.17962°
+                    SetLeftStick({6700, 4900}); // 36.17962°
                 }
                 if (_inputs->c_up) {
-                    SetLeftStick(6700, 3900); // 30.20324°
+                    SetLeftStick({6700, 3900}); // 30.20324°
                 }
                 if (_inputs->c_right) {
-                    SetLeftStick(6700, 3500); // 27.58203°
+                    SetLeftStick({6700, 3500}); // 27.58203°
                 }
             }
 
             // Angled Ftilts
             if (_inputs->a) {
-                SetLeftStick(3600, 2600); // 35.83765°
+                SetLeftStick({3600, 2600}); // 35.83765°
             }
         }
     }
@@ -126,53 +126,53 @@ void Ultimate::UpdateAnalogOutputs() {
         }
         if (directions.diagonal) {
             // MY + q1/2/3/4
-            SetLeftStick(3500, 5300); // 56.56013°
+            SetLeftStick({3500, 5300}); // 56.56013°
             if (shield_button_pressed) {
                 // MY + L, R, LS, and MS + q1/2
-                SetLeftStick(3800, 7000); // 61.50436°
+                SetLeftStick({3800, 7000}); // 61.50436°
                 // MY + L, R, LS, and MS + q3/4
                 if (directions.x < 0) {
-                    SetLeftStick(4000, 6800); // 59.53446°
+                    SetLeftStick({4000, 6800}); // 59.53446°
                 }
             }
         }
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(3500, 5300); // 56.56013°
+            SetLeftStick({3500, 5300}); // 56.56013°
             if (_inputs->c_down) {
-                SetLeftStick(4300, 5300); // 50.94686°
+                SetLeftStick({4300, 5300}); // 50.94686°
             }
             if (_inputs->c_left) {
-                SetLeftStick(4900, 5300); // 47.24574°
+                SetLeftStick({4900, 5300}); // 47.24574°
             }
             if (_inputs->c_up) {
-                SetLeftStick(3100, 5300); // 59.67639°
+                SetLeftStick({3100, 5300}); // 59.67639°
             }
             if (_inputs->c_right) {
-                SetLeftStick(2800, 5300); // 62.15242°
+                SetLeftStick({2800, 5300}); // 62.15242°
             }
 
             /* Extended Up B Angles */
             if (_inputs->b) {
-                SetLeftStick(4400, 6700); // 56.70644°
+                SetLeftStick({4400, 6700}); // 56.70644°
                 if (_inputs->c_down) {
-                    SetLeftStick(5500, 6700); // 50.61758°
+                    SetLeftStick({5500, 6700}); // 50.61758°
                 }
                 if (_inputs->c_left) {
-                    SetLeftStick(4900, 6700); // 53.82038°
+                    SetLeftStick({4900, 6700}); // 53.82038°
                 }
                 if (_inputs->c_up) {
-                    SetLeftStick(3900, 6700); // 59.79676°
+                    SetLeftStick({3900, 6700}); // 59.79676°
                 }
                 if (_inputs->c_right) {
-                    SetLeftStick(3500, 6700); // 62.41797°
+                    SetLeftStick({3500, 6700}); // 62.41797°
                 }
             }
 
             // MY Pivot Uptilt/Dtilt
             if (_inputs->a) {
-                SetLeftStick(3400, 3800); // 48.17983°
+                SetLeftStick({3400, 3800}); // 48.17983°
             }
         }
     }
@@ -180,7 +180,7 @@ void Ultimate::UpdateAnalogOutputs() {
     // C-stick ASDI Slideoff angle overrides any other C-stick modifiers (such as
     // angled fsmash).
     if (directions.cx != 0 && directions.cy != 0) {
-        SetCStick(4200, 6800); // 58.29857°
+        SetCStick({4200, 6800}); // 58.29857°
     }
 
     if (_inputs->l) {
@@ -193,7 +193,7 @@ void Ultimate::UpdateAnalogOutputs() {
 
     // Shut off c-stick when using dpad layer.
     if (_inputs->mod_x && _inputs->mod_y) {
-        SetCStick(0000, 0000);
+        SetCStick({0000, 0000});
     }
 
     // Nunchuk overrides left stick.

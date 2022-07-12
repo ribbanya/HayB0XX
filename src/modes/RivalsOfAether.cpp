@@ -45,29 +45,29 @@ void RivalsOfAether::UpdateAnalogOutputs() {
 
         // Angled fsmash
         if (directions.cx != 0) {
-            SetAngledFSmash(6500, 2300); // 19.48613°
+            SetAngledFSmash({6500, 2300}); // 19.48613°
         }
 
         // Need to check coord system in RoA
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(5900, 2300); // 21.29735°
+            SetLeftStick({5900, 2300}); // 21.29735°
 
             if (_inputs->c_down) {
-                SetLeftStick(4900, 2400); // 26.09542°
+                SetLeftStick({4900, 2400}); // 26.09542°
             }
 
             if (_inputs->c_left) {
-                SetLeftStick(5200, 3100); // 30.80145°
+                SetLeftStick({5200, 3100}); // 30.80145°
             }
 
             if (_inputs->c_up) {
-                SetLeftStick(4900, 3500); // 35.53768°
+                SetLeftStick({4900, 3500}); // 35.53768°
             }
 
             if (_inputs->c_right) {
-                SetLeftStick(5100, 4300); // 40.13549°
+                SetLeftStick({5100, 4300}); // 40.13549°
             }
         }
     }
@@ -79,22 +79,22 @@ void RivalsOfAether::UpdateAnalogOutputs() {
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(4400, 11300); // 68.72503°
+            SetLeftStick({4400, 11300}); // 68.72503°
 
             if (_inputs->c_down) {
-                SetLeftStick(4400, 9000); // 63.9465°
+                SetLeftStick({4400, 9000}); // 63.9465°
             }
 
             if (_inputs->c_left) {
-                SetLeftStick(4400, 7400); // 59.26451°
+                SetLeftStick({4400, 7400}); // 59.26451°
             }
 
             if (_inputs->c_up) {
-                SetLeftStick(4500, 6300); // 54.46232°
+                SetLeftStick({4500, 6300}); // 54.46232°
             }
 
             if (_inputs->c_right) {
-                SetLeftStick(4700, 5700); // 50.49232°
+                SetLeftStick({4700, 5700}); // 50.49232°
             }
         }
     }
@@ -105,21 +105,21 @@ void RivalsOfAether::UpdateAnalogOutputs() {
         if (directions.vertical)
             SetLeftStickY(10000);
         if (directions.horizontal && directions.y < 0) {
-            SetLeftStick(10000, 2800); // 15.64225°
+            SetLeftStick({10000, 2800}); // 15.64225°
         }
     }
 
     if (_inputs->r) {
         if (directions.diagonal) {
             if (_inputs->mod_y) {
-                SetLeftStick(4000, 6800); // 59.53446°
+                SetLeftStick({4000, 6800}); // 59.53446°
             }
         }
     }
 
     // Shut off c-stick when using dpad layer.
     if (_inputs->mod_x && _inputs->mod_y) {
-        SetLeftStick(0000, 0000); // 0°
+        SetLeftStick({0000, 0000}); // 0°
     }
 
     // Nunchuk overrides left stick.

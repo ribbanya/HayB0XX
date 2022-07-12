@@ -38,11 +38,11 @@ void Melee20Button::UpdateAnalogOutputs() {
     bool shield_button_pressed = _inputs->l || _inputs->r || _inputs->lightshield || _inputs->midshield;
     if (directions.diagonal) {
         // L, R, LS, and MS + q1/2
-        SetLeftStick(7000, 7000); // 45°
+        SetLeftStick({7000, 7000}); // 45°
 
         // L, R, LS, and MS + q3/4 = Vanilla shield drop
         if (directions.y < 0 && shield_button_pressed) {
-            SetLeftStick(7000, 6875); // 44.48384°
+            SetLeftStick({7000, 6875}); // 44.48384°
         }
     }
 
@@ -57,47 +57,47 @@ void Melee20Button::UpdateAnalogOutputs() {
         }
         if (directions.diagonal) {
             // MX + q1/2/3/4
-            SetLeftStick(7375, 3125); // 22.96377°
+            SetLeftStick({7375, 3125}); // 22.96377°
             if (shield_button_pressed) {
-                SetLeftStick(6375, 3750); // 30.46554°
+                SetLeftStick({6375, 3750}); // 30.46554°
             }
         }
 
         // Angled fsmash
         if (directions.cx != 0) {
-            SetAngledFSmash(8500, 5250); // 31.70143°
+            SetAngledFSmash({8500, 5250}); // 31.70143°
         }
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(7375, 3125); // 22.9638°
+            SetLeftStick({7375, 3125}); // 22.9638°
             if (_inputs->c_down) {
-                SetLeftStick(7000, 3625); // 27.37104°
+                SetLeftStick({7000, 3625}); // 27.37104°
             }
             if (_inputs->c_left) {
-                SetLeftStick(7875, 4875); // 31.77828°
+                SetLeftStick({7875, 4875}); // 31.77828°
             }
             if (_inputs->c_up) {
-                SetLeftStick(7000, 5125); // 36.18552°
+                SetLeftStick({7000, 5125}); // 36.18552°
             }
             if (_inputs->c_right) {
-                SetLeftStick(6125, 5250); // 40.59276°
+                SetLeftStick({6125, 5250}); // 40.59276°
             }
 
             /* Extended Up B Angles */
             if (_inputs->b) {
-                SetLeftStick(9125, 3875); // 22.9638°
+                SetLeftStick({9125, 3875}); // 22.9638°
                 if (_inputs->c_down) {
-                    SetLeftStick(8750, 4500); // 27.37104°
+                    SetLeftStick({8750, 4500}); // 27.37104°
                 }
                 if (_inputs->c_left) {
-                    SetLeftStick(8500, 5250); // 31.77828°
+                    SetLeftStick({8500, 5250}); // 31.77828°
                 }
                 if (_inputs->c_up) {
-                    SetLeftStick(7375, 5375); // 36.18552°
+                    SetLeftStick({7375, 5375}); // 36.18552°
                 }
                 if (_inputs->c_right) {
-                    SetLeftStick(6375, 5375); // 40.59276°
+                    SetLeftStick({6375, 5375}); // 40.59276°
                 }
             }
         }
@@ -113,11 +113,11 @@ void Melee20Button::UpdateAnalogOutputs() {
             SetLeftStickY(7375);
         }
         if (directions.diagonal) {
-            SetLeftStick(3125, 7375); // 67.03623°
+            SetLeftStick({3125, 7375}); // 67.03623°
             if (shield_button_pressed) {
-                SetLeftStick(4750, 8750); // 61.50436°
+                SetLeftStick({4750, 8750}); // 61.50436°
                 if (directions.y < 0) {
-                    SetLeftStick(5000, 8500); // 59.53446°
+                    SetLeftStick({5000, 8500}); // 59.53446°
                 }
             }
         }
@@ -129,34 +129,34 @@ void Melee20Button::UpdateAnalogOutputs() {
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(3125, 7375); // 67.03623°
+            SetLeftStick({3125, 7375}); // 67.03623°
             if (_inputs->c_down) {
-                SetLeftStick(3625, 7000); // 62.62896°
+                SetLeftStick({3625, 7000}); // 62.62896°
             }
             if (_inputs->c_left) {
-                SetLeftStick(4875, 7875); // 58.22172°
+                SetLeftStick({4875, 7875}); // 58.22172°
             }
             if (_inputs->c_up) {
-                SetLeftStick(5125, 7000); // 53.81448°
+                SetLeftStick({5125, 7000}); // 53.81448°
             }
             if (_inputs->c_right) {
-                SetLeftStick(6375, 7625); // 49.40724°
+                SetLeftStick({6375, 7625}); // 49.40724°
             }
 
             /* Extended Up B Angles */
             if (_inputs->b) {
-                SetLeftStick(3875, 9125); // 67.0362°
+                SetLeftStick({3875, 9125}); // 67.0362°
                 if (_inputs->c_down) {
-                    SetLeftStick(4500, 8750); // 62.62896°
+                    SetLeftStick({4500, 8750}); // 62.62896°
                 }
                 if (_inputs->c_left) {
-                    SetLeftStick(5250, 8500); // 58.22172°
+                    SetLeftStick({5250, 8500}); // 58.22172°
                 }
                 if (_inputs->c_up) {
-                    SetLeftStick(5875, 8000); // 53.81448°
+                    SetLeftStick({5875, 8000}); // 53.81448°
                 }
                 if (_inputs->c_right) {
-                    SetLeftStick(5875, 7125); // 49.40724°
+                    SetLeftStick({5875, 7125}); // 49.40724°
                 }
             }
         }
@@ -165,7 +165,7 @@ void Melee20Button::UpdateAnalogOutputs() {
     // C-stick ASDI Slideoff angle overrides any other C-stick modifiers (such as
     // angled fsmash).
     if (directions.cx != 0 && directions.cy != 0) {
-        SetCStick(5250, 8500); // 58.29857°
+        SetCStick({5250, 8500}); // 58.29857°
     }
 
     // Horizontal SOCD overrides X-axis modifiers (for ledgedash maximum jump
@@ -191,7 +191,7 @@ void Melee20Button::UpdateAnalogOutputs() {
 
     // Shut off c-stick when using dpad layer.
     if (_inputs->mod_x && _inputs->mod_y) {
-        SetCStick(0000, 0000); // 0°
+        SetCStick({0000, 0000}); // 0°
     }
 
     // Nunchuk overrides left stick.

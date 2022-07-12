@@ -43,19 +43,19 @@ void PlatformFighter::SetLeftStickY(const uint16_t &value) {
     SetAxis(&_outputs->leftStickY, directions.y, value);
 }
 
-void PlatformFighter::SetStick(uint8_t* xAxis, uint8_t* yAxis, const uint8_t &xDirection, const uint8_t &yDirection, const uint16_t &xValue, const uint16_t &yValue) {
-    SetAxis(xAxis, xDirection, xValue);
-    SetAxis(yAxis, yDirection, yValue);
+void PlatformFighter::SetStick(uint8_t* xAxis, uint8_t* yAxis, const uint8_t &xDirection, const uint8_t &yDirection, const OutputCoords &coords) {
+    SetAxis(xAxis, xDirection, coords.x);
+    SetAxis(yAxis, yDirection, coords.y);
 }
 
-void PlatformFighter::SetLeftStick(const uint16_t &xValue, const uint16_t &yValue) {
-    SetStick(&_outputs->leftStickX, &_outputs->leftStickY, directions.x, directions.y, xValue, yValue);
+void PlatformFighter::SetLeftStick(const OutputCoords& coords) {
+    SetStick(&_outputs->leftStickX, &_outputs->leftStickY, directions.x, directions.y, coords);
 }
 
-void PlatformFighter::SetCStick(const uint16_t &xValue, const uint16_t &yValue) {
-    SetStick(&_outputs->rightStickX, &_outputs->rightStickY, directions.x, directions.y, xValue, yValue);
+void PlatformFighter::SetCStick(const OutputCoords& coords) {
+    SetStick(&_outputs->rightStickX, &_outputs->rightStickY, directions.x, directions.y, coords);
 }
 
-void PlatformFighter::SetAngledFSmash(const uint16_t &xValue, const uint16_t yValue) {
-    SetStick(&_outputs->rightStickX, &_outputs->rightStickY, directions.cx, directions.y, xValue, yValue);
+void PlatformFighter::SetAngledFSmash(const OutputCoords& coords) {
+    SetStick(&_outputs->rightStickX, &_outputs->rightStickY, directions.cx, directions.y, coords);
 }

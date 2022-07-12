@@ -56,24 +56,24 @@ void Ultimate2::UpdateAnalogOutputs() {
         }
         if (directions.diagonal) {
             // MX + q1/2/3/4
-            SetLeftStick(5300, 4000); // 37.04247°
+            SetLeftStick({5300, 4000}); // 37.04247°
             if (shield_button_pressed) {
                 // MX + L, R, LS, and MS + q1/2/3/4
-                SetLeftStick(5100, 3000); // 30.46554°
+                SetLeftStick({5100, 3000}); // 30.46554°
             }
         }
 
         // Angled fsmash/ftilt with C-Stick + MX
         if (directions.cx != 0) {
-            SetAngledFSmash(12700, 5900); // 24.91802°
+            SetAngledFSmash({12700, 5900}); // 24.91802°
         }
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(5300, 4000); // 37.04247°
+            SetLeftStick({5300, 4000}); // 37.04247°
             // Angled Ftilts
             if (_inputs->a) {
-                SetLeftStick(3600, 2600); // 35.83765°
+                SetLeftStick({3600, 2600}); // 35.83765°
             }
         }
     }
@@ -97,24 +97,24 @@ void Ultimate2::UpdateAnalogOutputs() {
         }
         if (directions.diagonal) {
             // MY + q1/2/3/4
-            SetLeftStick(4100, 4400); // 47.02136°
+            SetLeftStick({4100, 4400}); // 47.02136°
             if (shield_button_pressed) {
                 // MY + L, R, LS, and MS + q1/2
-                SetLeftStick(3800, 7000); // 61.50436°
+                SetLeftStick({3800, 7000}); // 61.50436°
                 // MY + L, R, LS, and MS + q3/4 = 40 68
                 if (directions.x < 0) {
-                    SetLeftStick(4000, 6800); // 59.53446°
+                    SetLeftStick({4000, 6800}); // 59.53446°
                 }
             }
         }
 
         /* Up B angles */
         if (directions.diagonal && !shield_button_pressed) {
-            SetLeftStick(4100, 4400); // 47.02136°
+            SetLeftStick({4100, 4400}); // 47.02136°
 
             // MY Pivot Uptilt/Dtilt
             if (_inputs->a) {
-                SetLeftStick(3400, 3800); // 48.17983°
+                SetLeftStick({3400, 3800}); // 48.17983°
             }
         }
     }
@@ -122,7 +122,7 @@ void Ultimate2::UpdateAnalogOutputs() {
     // C-stick ASDI Slideoff angle overrides any other C-stick modifiers (such as
     // angled fsmash).
     if (directions.cx != 0 && directions.cy != 0) {
-        SetCStick(4200, 6800); // 58.29857°
+        SetCStick({4200, 6800}); // 58.29857°
     }
 
     if (_inputs->l) {
@@ -135,7 +135,7 @@ void Ultimate2::UpdateAnalogOutputs() {
 
     // Shut off c-stick when using dpad layer.
     if (_inputs->mod_x && _inputs->mod_y) {
-        SetCStick(0000, 0000); // 0°
+        SetCStick({0000, 0000}); // 0°
     }
 
     // Nunchuk overrides left stick.
