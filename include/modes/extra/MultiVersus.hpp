@@ -14,9 +14,6 @@ class MultiVersus : public ControllerMode {
     virtual void UpdateAnalogOutputs(InputState &inputs, OutputState &outputs);
 
   private:
-    bool horizontal_socd;
-
-    void HandleSocd(InputState &inputs);
 };
 
 #endif
