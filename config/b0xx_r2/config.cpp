@@ -94,12 +94,12 @@ void setup() {
             // Hold C-Left on plugin for N64.
             primary_backend =
                 new N64Backend(input_sources, input_source_count, 60, pinout.joybus_data);
-        } else if (button_holds.a) {
-            // Hold A on plugin for GameCube adapter.
+        } else if (!button_holds.a) {
+            // Hold A on plugin for GameCube/Wii.
             primary_backend =
                 new GamecubeBackend(input_sources, input_source_count, 0, pinout.joybus_data);
         } else {
-            // Default to GameCube/Wii.
+            // Default to GameCube adapter.
             primary_backend =
                 new GamecubeBackend(input_sources, input_source_count, 125, pinout.joybus_data);
         }
@@ -110,7 +110,7 @@ void setup() {
     }
 
     // Default to Melee mode.
-    primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP_NO_REAC));
+    primary_backend->SetGameMode(new Ultimate(socd::SOCD_2IP));
 }
 
 void loop() {
