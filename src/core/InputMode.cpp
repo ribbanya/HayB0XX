@@ -32,13 +32,6 @@ void InputMode::HandleSocd(InputState &inputs) {
             case socd::SOCD_2IP:
                 socd::twoIP(inputs.*(pair.input_dir1), inputs.*(pair.input_dir2), _socd_states[i]);
                 break;
-            case socd::SOCD_2IP_NO_REAC:
-                socd::twoIPNoReactivate(
-                    inputs.*(pair.input_dir1),
-                    inputs.*(pair.input_dir2),
-                    _socd_states[i]
-                );
-                break;
             case socd::SOCD_KEYBOARD:
                 break;
         }

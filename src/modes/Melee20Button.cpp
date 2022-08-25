@@ -93,9 +93,9 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             outputs.leftStickX = 128 + (directions.x * 59);
             outputs.leftStickY = 128 + (directions.y * 25);
             if (shield_button_pressed) {
-                // MX + L, R, LS, and MS + q1/2/3/4 = 6375 3750 = 51 30
-                outputs.leftStickX = 128 + (directions.x * 51);
-                outputs.leftStickY = 128 + (directions.y * 30);
+                // MX + L, R, LS, and MS + q1/2/3/4 = 9375 3125 = 75 35
+                outputs.leftStickX = 128 + (directions.x * 75);
+                outputs.leftStickY = 128 + (directions.y * 35);
             }
         }
 
@@ -166,18 +166,18 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         if (directions.horizontal) {
             outputs.leftStickX = 128 + (directions.x * 27);
         }
-        // MY + Vertical (even if shield is held) = 7375 = 59
+        // MY + Vertical (even if shield is held) = 6750 = 54
         if (directions.vertical) {
-            outputs.leftStickY = 128 + (directions.y * 59);
+            outputs.leftStickY = 128 + (directions.y * 54);
         }
         if (directions.diagonal) {
             // MY + q1/2/3/4 = 3125 7375 = 25 59
             outputs.leftStickX = 128 + (directions.x * 25);
             outputs.leftStickY = 128 + (directions.y * 59);
             if (shield_button_pressed) {
-                // MY + L, R, LS, and MS + q1/2 = 4750 8750 = 38 70
-                outputs.leftStickX = 128 + (directions.x * 38);
-                outputs.leftStickY = 128 + (directions.y * 70);
+                // MY + L, R, LS, and MS + q1/2 = 4750 8750 = 32 72
+                outputs.leftStickX = 128 + (directions.x * 32);
+                outputs.leftStickY = 128 + (directions.y * 72);
                 // MY + L, R, LS, and MS + q3/4 = 5000 8500 = 40 68
                 if (directions.y == -1) {
                     outputs.leftStickX = 128 + (directions.x * 40);
@@ -246,6 +246,69 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         }
     }
 
+    if (inputs.mod_v) {
+        // MX + Horizontal (even if shield is held) = 6625 = 53
+        if (directions.horizontal) {
+            outputs.leftStickX = 128 + (directions.x * 53);
+        }
+        // MX + Vertical (even if shield is held) = 5375 = 43
+        if (directions.vertical) {
+            outputs.leftStickY = 128 + (directions.y * 43);
+        }
+        if (directions.diagonal) {
+            // MX + q1/2/3/4 = 7375 3125 = 59 25
+            outputs.leftStickX = 128 + (directions.x * 59);
+            outputs.leftStickY = 128 + (directions.y * 25);
+            if (shield_button_pressed) {
+                // MX + L, R, LS, and MS + q1/2/3/4 = 9375 3125 = 75 35
+                outputs.leftStickX = 128 + (directions.x * 75);
+                outputs.leftStickY = 128 + (directions.y * 35);
+            }
+        }
+    }
+
+        if (inputs.mod_w) {
+        // MX + Horizontal (even if shield is held) = 6625 = 53
+        if (directions.horizontal) {
+            outputs.leftStickX = 128 + (directions.x * 53);
+        }
+        // MX + Vertical (even if shield is held) = 5375 = 43
+        if (directions.vertical) {
+            outputs.leftStickY = 128 + (directions.y * 43);
+        }
+        if (directions.diagonal) {
+            // MX + q1/2/3/4 = 7375 3125 = 59 25
+            outputs.leftStickX = 128 + (directions.x * 59);
+            outputs.leftStickY = 128 + (directions.y * 25);
+            if (shield_button_pressed) {
+                // MX + L, R, LS, and MS + q1/2/3/4 = 9375 3125 = 75 35
+                outputs.leftStickX = 128 + (directions.x * 75);
+                outputs.leftStickY = 128 + (directions.y * 35);
+            }
+        }
+    }
+
+        if (inputs.mod_z) {
+        // MX + Horizontal (even if shield is held) = 6625 = 53
+        if (directions.horizontal) {
+            outputs.leftStickX = 128 + (directions.x * 53);
+        }
+        // MX + Vertical (even if shield is held) = 5375 = 43
+        if (directions.vertical) {
+            outputs.leftStickY = 128 + (directions.y * 43);
+        }
+        if (directions.diagonal) {
+            // MX + q1/2/3/4 = 7375 3125 = 59 25
+            outputs.leftStickX = 128 + (directions.x * 59);
+            outputs.leftStickY = 128 + (directions.y * 25);
+            if (shield_button_pressed) {
+                // MX + L, R, LS, and MS + q1/2/3/4 = 9375 3125 = 75 35
+                outputs.leftStickX = 128 + (directions.x * 75);
+                outputs.leftStickY = 128 + (directions.y * 35);
+            }
+        }
+    }
+    
     // C-stick ASDI Slideoff angle overrides any other C-stick modifiers (such as
     // angled fsmash).
     if (directions.cx != 0 && directions.cy != 0) {

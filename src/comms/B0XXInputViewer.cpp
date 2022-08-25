@@ -51,9 +51,9 @@ void B0XXInputViewer::SendReport() {
     _report[17] = ASCII_BIT(_inputs.c_down);
     _report[18] = ASCII_BIT(_inputs.lightshield);
     _report[19] = ASCII_BIT(_inputs.midshield);
-    _report[20] = ASCII_BIT(false);
-    _report[21] = ASCII_BIT(false);
-    _report[22] = ASCII_BIT(false);
+    _report[20] = ASCII_BIT(_inputs.mod_v);
+    _report[21] = ASCII_BIT(_inputs.mod_w);
+    _report[22] = ASCII_BIT(_inputs.mod_z);
     _report[23] = ASCII_BIT(true);
     _report[24] = '\n';
 
