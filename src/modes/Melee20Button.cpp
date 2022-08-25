@@ -267,7 +267,7 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         }
     }
 
-        if (inputs.mod_w) {
+    if (inputs.mod_w) {
         // MX + Horizontal (even if shield is held) = 6625 = 53
         if (directions.horizontal) {
             outputs.leftStickX = 128 + (directions.x * 53);
@@ -288,7 +288,7 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         }
     }
 
-        if (inputs.mod_z) {
+    if (inputs.mod_z) {
         // MX + Horizontal (even if shield is held) = 6625 = 53
         if (directions.horizontal) {
             outputs.leftStickX = 128 + (directions.x * 53);
