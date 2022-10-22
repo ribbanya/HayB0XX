@@ -99,7 +99,7 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             // MX + q1/2/3/4 = 7375 3125 = 59 25
             outputs.leftStickX = 128 + (directions.x * 59);
             outputs.leftStickY = 128 + (directions.y * 25);
-            if (shield_button_pressed) {
+            if (directions.y == -1 && shield_button_pressed) {
                 outputs.leftStickX = 128 + (directions.x * wavedash_angle_mx.x);
                 outputs.leftStickY = 128 + (directions.y * wavedash_angle_mx.y);
             }
