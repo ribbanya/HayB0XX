@@ -7,6 +7,7 @@
 #include "modes/Melee20Button.hpp"
 #include "modes/MeleePeach20Button.hpp"
 #include "modes/MeleePuff20Button.hpp"
+#include "modes/MeleeYoshi20Button.hpp"
 #include "modes/RivalsOfAether.hpp"
 
 extern KeyboardMode *current_kb_mode;
@@ -71,22 +72,22 @@ void select_mode(CommunicationBackend *backend, uint8_t new_mode_id) {
 
     switch (new_mode_id) {
         case 1:
-            set_mode(backend, new MeleePuff20Button(socd::SOCD_2IP_NO_REAC));
-            break;
-        case 2:
-            set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
-            break;
-        case 3:
             set_mode(backend, new MeleePeach20Button(socd::SOCD_2IP_NO_REAC));
             break;
-        case 4:
-            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
+        case 2:
+            set_mode(backend, new MeleePuff20Button(socd::SOCD_2IP_NO_REAC));
             break;
-        case 5:
+        case 3:
+            set_mode(backend, new MeleeYoshi20Button(socd::SOCD_2IP_NO_REAC));
+            break;
+        case 4:
             set_mode(backend, new RivalsOfAether(socd::SOCD_2IP));
             break;
+        case 5:
+            set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
+            break;
         case 6:
-            set_mode(backend, new DefaultKeyboardMode(socd::SOCD_2IP));
+            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
             break;
         default:
             return;
