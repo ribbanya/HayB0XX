@@ -5,19 +5,24 @@
 #include "core/socd.hpp"
 #include "core/state.hpp"
 
+typedef struct {
+    bool crouch_walk_os = false;
+} Melee20ButtonOptions;
+
 class Melee20Button : public ControllerMode {
   public:
     Melee20Button(socd::SocdType socd_type);
 
   protected:
-    virtual void UpdateDigitalOutputs(InputState &inputs, OutputState &outputs);
-    virtual void UpdateAnalogOutputs(InputState &inputs, OutputState &outputs);
+    void UpdateDigitalOutputs(InputState &inputs, OutputState &outputs);
+    void UpdateAnalogOutputs(InputState &inputs, OutputState &outputs);
 
     OutputAngle wavedash_angle_mx;
     OutputAngle wavedash_angle_my;
 
   private:
-    bool horizontal_socd;
+    Melee20ButtonOptions _options;
+    bool _horizontal_socd;
 
     void HandleSocd(InputState &inputs);
 };

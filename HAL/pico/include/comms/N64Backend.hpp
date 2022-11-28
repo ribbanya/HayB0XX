@@ -1,14 +1,14 @@
-#ifndef _COMMS_GAMECUBEBACKEND_HPP
-#define _COMMS_GAMECUBEBACKEND_HPP
+#ifndef _COMMS_N64BACKEND_HPP
+#define _COMMS_N64BACKEND_HPP
 
 #include "core/CommunicationBackend.hpp"
 
-#include <GamecubeConsole.hpp>
+#include <N64Console.hpp>
 #include <hardware/pio.h>
 
-class GamecubeBackend : public CommunicationBackend {
+class N64Backend : public CommunicationBackend {
   public:
-    GamecubeBackend(
+    N64Backend(
         InputSource **input_sources,
         size_t input_source_count,
         uint data_pin,
@@ -16,13 +16,13 @@ class GamecubeBackend : public CommunicationBackend {
         int sm = -1,
         int offset = -1
     );
-    ~GamecubeBackend();
+    ~N64Backend();
     void SendReport();
     int GetOffset();
 
   private:
-    GamecubeConsole *_gamecube;
-    gc_report_t _report;
+    N64Console *_n64;
+    n64_report_t _report;
 };
 
 #endif

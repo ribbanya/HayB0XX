@@ -4,6 +4,7 @@
 
 #include <GamecubeConsole.hpp>
 #include <hardware/pio.h>
+#include <hardware/timer.h>
 
 GamecubeBackend::GamecubeBackend(
     InputSource **input_sources,
@@ -27,9 +28,13 @@ void GamecubeBackend::SendReport() {
     ScanInputs(InputScanSpeed::SLOW);
     ScanInputs(InputScanSpeed::MEDIUM);
 
-    _gamecube->WaitForPoll();
+    // Read inputs
+    _gamecube->WaitForPollStart();
 
     // Update fast inputs in response to poll.
+    // But wait 40us first so that we read inputs at the start of the 3rd byte of the poll command
+    // not the second, so inputs are maximum 40us old by the time we start sending the report.
+    busy_wait_us(40);
     ScanInputs(InputScanSpeed::FAST);
 
     // Run gamemode logic.
@@ -44,8 +49,8 @@ void GamecubeBackend::SendReport() {
     _report.l = _outputs.triggerLDigital;
     _report.r = _outputs.triggerRDigital;
     _report.start = _outputs.start;
-    _report.dpad_left = _outputs.dpadLeft;
-    _report.dpad_right = _outputs.dpadRight;
+    _report.dpad_left = _outputs.dpadLeft | _outputs.select;
+    _report.dpad_right = _outputs.dpadRight | _outputs.home;
     _report.dpad_down = _outputs.dpadDown;
     _report.dpad_up = _outputs.dpadUp;
 
@@ -57,8 +62,10 @@ void GamecubeBackend::SendReport() {
     _report.l_analog = _outputs.triggerLAnalog;
     _report.r_analog = _outputs.triggerRAnalog;
 
-    // Send outputs to console.
-    _gamecube->SendReport(&_report);
+    // Send outputs to console unless poll command is invalid.
+    if (_gamecube->WaitForPollEnd() != PollStatus::ERROR) {
+        _gamecube->SendReport(&_report);
+    }
 }
 
 int GamecubeBackend::GetOffset() {

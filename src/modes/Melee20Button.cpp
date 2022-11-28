@@ -19,11 +19,11 @@ Melee20Button::Melee20Button(socd::SocdType socd_type) : ControllerMode(socd_typ
     // B0XX: 5000 8500 = 40 68 = 59.53°
     wavedash_angle_my = { .x = 40, .y = 68 };
 
-    horizontal_socd = false;
+    _horizontal_socd = false;
 }
 
 void Melee20Button::HandleSocd(InputState &inputs) {
-    horizontal_socd = inputs.left && inputs.right;
+    _horizontal_socd = inputs.left && inputs.right;
     InputMode::HandleSocd(inputs);
 }
 
@@ -261,7 +261,7 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
 
     // Horizontal SOCD overrides X-axis modifiers (for ledgedash maximum jump
     // trajectory).
-    if (horizontal_socd && !directions.vertical) {
+    if (_horizontal_socd && !directions.vertical) {
         outputs.leftStickX = 128 + (directions.x * 80);
     }
 

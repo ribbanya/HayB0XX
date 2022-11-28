@@ -24,19 +24,16 @@ void Ultimate::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.triggerLDigital = inputs.l;
     outputs.triggerRDigital = inputs.r;
     outputs.start = inputs.start;
+    outputs.select = inputs.select;
+    outputs.home = inputs.home;
 
-    // D-Pad
-    if (inputs.mod_x && inputs.mod_y) {
+    // Turn on D-Pad layer by holding Mod X + Mod Y or Nunchuk C button.
+    if ((inputs.mod_x && inputs.mod_y) || inputs.nunchuk_c) {
         outputs.dpadUp = inputs.c_up;
         outputs.dpadDown = inputs.c_down;
         outputs.dpadLeft = inputs.c_left;
         outputs.dpadRight = inputs.c_right;
     }
-
-    if (inputs.select)
-        outputs.dpadLeft = true;
-    if (inputs.home)
-        outputs.dpadRight = true;
 }
 
 void Ultimate::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
@@ -267,8 +264,8 @@ void Ultimate::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         outputs.triggerRAnalog = 140;
     }
 
-    // Shut off c-stick when using dpad layer.
-    if (inputs.mod_x && inputs.mod_y) {
+    // Shut off C-stick when using D-Pad layer.
+    if ((inputs.mod_x && inputs.mod_y) || inputs.nunchuk_c) {
         outputs.rightStickX = 128;
         outputs.rightStickY = 128;
     }
