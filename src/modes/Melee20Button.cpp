@@ -78,12 +78,6 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         // L, R, LS, and MS + q1/2 = 7000 7000
         outputs.leftStickX = 128 + (directions.x * 56);
         outputs.leftStickY = 128 + (directions.y * 56);
-        // L, R, LS, and MS + q3/4 = 7000 6875 (For vanilla shield drop. Gives 44.5
-        // degree wavedash).
-        if (directions.y == -1 && shield_button_pressed) {
-            outputs.leftStickX = 128 + (directions.x * 56);
-            outputs.leftStickY = 128 + (directions.y * 55);
-        }
     }
 
     if (inputs.mod_x) {
