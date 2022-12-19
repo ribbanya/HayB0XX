@@ -7,7 +7,7 @@
 Melee20Button::Melee20Button(socd::SocdType socd_type) : ControllerMode(socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
-        socd::SocdPair{ &InputState::left,   &InputState::right  },
+        socd::SocdPair{&InputState::left,    &InputState::right  },
         socd::SocdPair{ &InputState::down,   &InputState::up     },
         socd::SocdPair{ &InputState::c_left, &InputState::c_right},
         socd::SocdPair{ &InputState::c_down, &InputState::c_up   },
@@ -74,10 +74,17 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
     );
 
     bool shield_button_pressed = inputs.l || inputs.r || inputs.lightshield || inputs.midshield;
+
     if (directions.diagonal) {
-        // L, R, LS, and MS + q1/2 = 7000 7000
-        outputs.leftStickX = 128 + (directions.x * 56);
-        outputs.leftStickY = 128 + (directions.y * 56);
+        if (directions.vertical > 0) {
+            // No tap jump
+            outputs.leftStickX = 128 + (directions.x * 60);
+            outputs.leftStickY = 128 + (directions.y * 52);
+        } else if (directions.vertical < 0) {
+            // Crouch walk OS
+            outputs.leftStickX = 128 + (directions.x * 56);
+            outputs.leftStickY = 128 + (directions.y * 55);
+        }
     }
 
     if (inputs.mod_x) {
