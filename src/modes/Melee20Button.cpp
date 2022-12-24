@@ -76,14 +76,19 @@ void Melee20Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
     bool shield_button_pressed = inputs.l || inputs.r || inputs.lightshield || inputs.midshield;
 
     if (directions.diagonal) {
-        if (directions.vertical > 0) {
+        if (directions.y > 0) {
             // No tap jump
             outputs.leftStickX = 128 + (directions.x * 60);
             outputs.leftStickY = 128 + (directions.y * 52);
-        } else if (directions.vertical < 0) {
-            // Crouch walk OS
+
+        } else if (directions.y < 0) {
             outputs.leftStickX = 128 + (directions.x * 56);
-            outputs.leftStickY = 128 + (directions.y * 55);
+
+            if (shield_button_pressed)
+                outputs.leftStickY = 128 + (directions.y * 56);
+            else
+                // Crouch walk OS
+                outputs.leftStickY = 128 + (directions.y * 55);
         }
     }
 
