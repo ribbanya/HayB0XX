@@ -24,6 +24,8 @@ GpioButtonMapping button_mappings[] = {
 
     { &InputState::mod_x,       28},
     { &InputState::mod_y,       29},
+    { &InputState::select,      30},
+    { &InputState::home,        31},
 
     { &InputState::start,       50},
 
@@ -83,7 +85,9 @@ void setup() {
     backends = new CommunicationBackend *[backend_count] { primary_backend };
 
     // Default to Melee mode.
-    primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP_NO_REAC));
+    primary_backend->SetGameMode(
+        new Melee20Button(socd::SOCD_2IP_NO_REAC, { .crouch_walk_os = false })
+    );
 }
 
 void loop() {
