@@ -1,6 +1,7 @@
 #ifndef _CONFIG_MODE_SELECTION_HPP
 #define _CONFIG_MODE_SELECTION_HPP
 
+#include "core/socd.hpp"
 #include "core/state.hpp"
 #include "modes/DefaultKeyboardMode.hpp"
 #include "modes/FgcMode.hpp"
@@ -10,6 +11,7 @@
 #include "modes/MeleePuff20Button.hpp"
 #include "modes/MeleeYoshi20Button.hpp"
 #include "modes/RivalsOfAether.hpp"
+#include "modes/Secret.hpp"
 
 extern KeyboardMode *current_kb_mode;
 uint8_t current_mode_id = 0;
@@ -88,7 +90,7 @@ void select_mode(CommunicationBackend *backend, uint8_t new_mode_id) {
             set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
             break;
         case 6:
-            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
+            set_mode(backend, new Secret(socd::SOCD_NEUTRAL));
             break;
         default:
             return;

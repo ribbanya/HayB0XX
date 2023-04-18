@@ -1,0 +1,7 @@
+-stdlib=libstdc++
+-std=c++11
+-Isrc
+-Iinclude
+-Ilib
+-IHAL
+-Iconfig
