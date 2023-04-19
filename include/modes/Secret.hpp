@@ -10,6 +10,7 @@ class Secret : public ControllerMode {
     Secret(socd::SocdType socd_type);
 
   private:
+    void HandleSocd(InputState &inputs);
     void UpdateDigitalOutputs(InputState &inputs, OutputState &outputs);
     void UpdateAnalogOutputs(InputState &inputs, OutputState &outputs);
 };

@@ -90,7 +90,7 @@ void select_mode(CommunicationBackend *backend, uint8_t new_mode_id) {
             set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
             break;
         case 6:
-            set_mode(backend, new Secret(socd::SOCD_NEUTRAL));
+            set_mode(backend, new Secret(socd::SOCD_2IP));
             break;
         default:
             return;
