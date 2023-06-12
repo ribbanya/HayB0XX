@@ -84,7 +84,7 @@ void select_mode(CommunicationBackend *backend, uint8_t new_mode_id) {
             set_mode(backend, new MeleeYoshi20Button(socd::SOCD_2IP_NO_REAC));
             break;
         case 4:
-            set_mode(backend, new MeleeMarth20Button(socd::SOCD_2IP));
+            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
             break;
         case 5:
             set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));

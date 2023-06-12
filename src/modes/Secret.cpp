@@ -8,7 +8,7 @@ Secret::Secret(socd::SocdType socd_type) : ControllerMode(socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
         socd::SocdPair{&InputState::left,    &InputState::right  },
-        socd::SocdPair{ &InputState::down,   &InputState::up     },
+        socd::SocdPair{ &InputState::down,   &InputState::mod_x  },
         socd::SocdPair{ &InputState::c_left, &InputState::c_right},
         socd::SocdPair{ &InputState::c_down, &InputState::c_up   },
     };
@@ -33,9 +33,17 @@ void Secret::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.y = inputs.a;
 
     // Boost
-    outputs.triggerLDigital = inputs.l;
+    outputs.triggerLDigital = inputs.l || inputs.up;
+
     // Pause
     outputs.start = inputs.start;
+
+    if (inputs.mod_y) {
+        outputs.dpadLeft = inputs.c_left;
+        outputs.dpadRight = inputs.c_right;
+        outputs.dpadDown = inputs.c_down;
+        outputs.dpadUp = inputs.c_up;
+    }
 
     // DebugPause
     outputs.select = inputs.midshield;
@@ -51,10 +59,10 @@ void Secret::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         inputs.right,
         inputs.down,
         inputs.mod_x,
-        inputs.c_left,
-        inputs.c_right,
-        inputs.c_down,
-        inputs.c_up,
+        inputs.c_left && !inputs.mod_y,
+        inputs.c_right && !inputs.mod_y,
+        inputs.c_down && !inputs.mod_y,
+        inputs.c_up && !inputs.mod_y,
         ANALOG_STICK_MIN,
         ANALOG_STICK_NEUTRAL,
         ANALOG_STICK_MAX,
