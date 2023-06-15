@@ -28,37 +28,30 @@ void FgcMode::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     // Menu keys
     outputs.start = inputs.start;
     outputs.select = inputs.c_left;
-    outputs.home = inputs.c_down;
-    outputs.leftStickClick = inputs.c_up;
-    outputs.rightStickClick = inputs.c_right;
+    outputs.home = inputs.c_right;
+
+    // Stick clicks
+    outputs.leftStickClick = inputs.l;
+    outputs.rightStickClick = inputs.c_up;
 
     // Right hand bottom row
     outputs.a = inputs.b;
     outputs.b = inputs.x;
-    outputs.triggerLDigital = inputs.z;
-    outputs.triggerRDigital = inputs.up;
+    outputs.buttonL = inputs.z;
+    outputs.buttonR = inputs.up;
 
     // Right hand top row
     outputs.x = inputs.r;
     outputs.y = inputs.y;
-    outputs.buttonR = inputs.midshield;
-    outputs.buttonL = inputs.lightshield;
+    outputs.triggerLDigital = inputs.lightshield;
+    outputs.triggerRDigital = inputs.midshield;
 }
 
 void FgcMode::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
-    // Coordinate calculations to make modifier handling simpler.
-    UpdateDirections(
-        inputs.left,
-        inputs.right,
-        inputs.down,
-        inputs.mod_x || inputs.a,
-        false,
-        false,
-        false,
-        false,
-        ANALOG_STICK_MIN,
-        ANALOG_STICK_NEUTRAL,
-        ANALOG_STICK_MAX,
-        outputs
-    );
+    outputs.leftStickX = ANALOG_STICK_NEUTRAL;
+    outputs.leftStickY = ANALOG_STICK_NEUTRAL;
+    outputs.rightStickX = ANALOG_STICK_NEUTRAL;
+    outputs.rightStickY = ANALOG_STICK_NEUTRAL;
+    outputs.triggerLAnalog = outputs.triggerLDigital ? 255 : 0;
+    outputs.triggerRAnalog = outputs.triggerRDigital ? 255 : 0;
 }

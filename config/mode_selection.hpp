@@ -50,6 +50,14 @@ uint8_t get_mode_id_from_modifiers(InputState &inputs) {
     } else if (inputs.mod_y && !inputs.mod_x && inputs.start) {
         if (inputs.l)
             return 6;
+        if (inputs.left)
+            return 7;
+        if (inputs.down)
+            return 8;
+        if (inputs.right)
+            return 9;
+        if (inputs.b)
+            return 10;
     }
 
     return 0;
@@ -91,6 +99,9 @@ void select_mode(CommunicationBackend *backend, uint8_t new_mode_id) {
             break;
         case 6:
             set_mode(backend, new Secret(socd::SOCD_2IP));
+            break;
+        case 7:
+            set_mode(backend, new DefaultKeyboardMode(socd::SOCD_KEYBOARD));
             break;
         default:
             return;
