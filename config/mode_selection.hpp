@@ -4,6 +4,7 @@
 #include "core/socd.hpp"
 #include "core/state.hpp"
 #include "modes/DefaultKeyboardMode.hpp"
+#include "modes/SF6KeyboardMode.hpp"
 #include "modes/FgcMode.hpp"
 #include "modes/Melee20Button.hpp"
 #include "modes/MeleeMarth20Button.hpp"
@@ -11,6 +12,7 @@
 #include "modes/MeleePuff20Button.hpp"
 #include "modes/MeleeYoshi20Button.hpp"
 #include "modes/RivalsOfAether.hpp"
+#include "modes/SF6Mode.hpp"
 #include "modes/Secret.hpp"
 
 extern KeyboardMode *current_kb_mode;
@@ -92,16 +94,22 @@ void select_mode(CommunicationBackend *backend, uint8_t new_mode_id) {
             set_mode(backend, new MeleeYoshi20Button(socd::SOCD_2IP_NO_REAC));
             break;
         case 4:
-            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
-            break;
-        case 5:
             set_mode(backend, new Melee20Button(socd::SOCD_2IP_NO_REAC));
             break;
-        case 6:
+        case 5:
             set_mode(backend, new Secret(socd::SOCD_2IP));
             break;
         case 7:
             set_mode(backend, new DefaultKeyboardMode(socd::SOCD_KEYBOARD));
+            break;
+        case 8:
+            set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL));
+            break;
+        case 9:
+            set_mode(backend, new SF6Mode());
+            break;
+        case 10:
+            set_mode(backend, new SF6KeyboardMode());
             break;
         default:
             return;

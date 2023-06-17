@@ -15,6 +15,8 @@
 #include "input/NunchukInput.hpp"
 #include "joybus_utils.hpp"
 #include "modes/Melee20Button.hpp"
+#include "modes/SF6KeyboardMode.hpp"
+#include "modes/SF6Mode.hpp"
 #include "stdlib.hpp"
 
 #include <pico/bootrom.h>
@@ -83,6 +85,8 @@ void setup() {
 
     ConnectedConsole console = detect_console(pinout.joybus_data);
 
+    bool is_dinput = false;
+
     /* Select communication backend. */
     CommunicationBackend *primary_backend;
     if (console == ConnectedConsole::NONE) {
@@ -96,6 +100,7 @@ void setup() {
             primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP));
             return;
         } else if (button_holds.z) {
+            is_dinput = true;
             // If no console detected and Z is held on plugin then use DInput backend.
             TUGamepad::registerDescriptor();
             TUKeyboard::registerDescriptor();
@@ -125,8 +130,11 @@ void setup() {
         backends = new CommunicationBackend *[backend_count] { primary_backend };
     }
 
-    // Default to Melee mode.
-    primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP_NO_REAC));
+    if (is_dinput) {
+        set_mode(primary_backend, new SF6KeyboardMode());
+    } else {
+        set_mode(primary_backend, new SF6Mode());
+    }
 }
 
 void loop() {
