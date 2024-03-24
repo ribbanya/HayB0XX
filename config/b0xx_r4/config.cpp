@@ -14,9 +14,9 @@
 #include "input/GpioButtonInput.hpp"
 #include "input/NunchukInput.hpp"
 #include "joybus_utils.hpp"
+#include "modes/GgstKeyboardMode.hpp"
+#include "modes/GgstMode.hpp"
 #include "modes/Melee20Button.hpp"
-#include "modes/SF6KeyboardMode.hpp"
-#include "modes/SF6Mode.hpp"
 #include "stdlib.hpp"
 
 #include <pico/bootrom.h>
@@ -131,9 +131,9 @@ void setup() {
     }
 
     if (is_dinput) {
-        set_mode(primary_backend, new SF6KeyboardMode());
+        set_mode(primary_backend, new GgstKeyboardMode());
     } else {
-        set_mode(primary_backend, new SF6Mode());
+        set_mode(primary_backend, new GgstMode());
     }
 }
 

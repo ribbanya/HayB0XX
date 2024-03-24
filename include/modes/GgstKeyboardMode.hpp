@@ -7,7 +7,7 @@
 
 class GgstKeyboardMode : public KeyboardMode {
   public:
-    GgstKeyboardMode(socd::SocdType socd_type);
+    GgstKeyboardMode();
 
   private:
     void UpdateKeys(InputState &inputs);

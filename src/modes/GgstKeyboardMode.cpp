@@ -3,7 +3,7 @@
 #include "core/socd.hpp"
 #include "core/state.hpp"
 
-GgstKeyboardMode::GgstKeyboardMode(socd::SocdType socd_type) {}
+GgstKeyboardMode::GgstKeyboardMode() {}
 
 void GgstKeyboardMode::UpdateKeys(InputState &inputs) {
     Press(HID_KEY_SHIFT_LEFT, inputs.l);
