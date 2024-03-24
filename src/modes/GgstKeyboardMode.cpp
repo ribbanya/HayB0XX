@@ -7,8 +7,8 @@ GgstKeyboardMode::GgstKeyboardMode() {}
 
 void GgstKeyboardMode::UpdateKeys(InputState &inputs) {
     Press(HID_KEY_SHIFT_LEFT, inputs.l);
-    Press(HID_KEY_A, inputs.left);
-    Press(HID_KEY_S, inputs.down);
+    Press(HID_KEY_Q, inputs.left);
+    Press(HID_KEY_W, inputs.down);
     Press(HID_KEY_D, inputs.right);
     Press(HID_KEY_SPACE, inputs.mod_x);
     Press(HID_KEY_ALT_LEFT, inputs.mod_y);
