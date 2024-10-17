@@ -6,7 +6,7 @@
 #include "modes/FgcMode.hpp"
 #include "modes/Melee20Button.hpp"
 #include "modes/ProjectM.hpp"
-#include "modes/RivalsOfAether.hpp"
+#include "modes/RivalsOfAether2.hpp"
 #include "modes/RabbitAndSteel.hpp"
 #include "modes/Ultimate.hpp"
 
@@ -52,7 +52,7 @@ void select_mode(CommunicationBackend *backend) {
         } else if (inputs.right) {
             set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL));
         } else if (inputs.b) {
-            set_mode(backend, new RivalsOfAether(socd::SOCD_2IP));
+            set_mode(backend, new RivalsOfAether2(socd::SOCD_2IP));
         }
     } else if (inputs.mod_y && !inputs.mod_x && inputs.start) {
         if (inputs.l) {
