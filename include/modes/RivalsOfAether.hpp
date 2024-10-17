@@ -5,7 +5,7 @@
 #include "core/socd.hpp"
 #include "core/state.hpp"
 
-class RivalsOfAether : public ControllerMode 
+class RivalsOfAether : public ControllerMode {
   public:
     RivalsOfAether(socd::SocdType socd_type)
 
