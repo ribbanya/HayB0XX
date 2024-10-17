@@ -7,6 +7,7 @@
 #include "modes/Melee20Button.hpp"
 #include "modes/ProjectM.hpp"
 #include "modes/RivalsOfAether.hpp"
+#include "modes/RabbitAndSteel.hpp"
 #include "modes/Ultimate.hpp"
 
 extern KeyboardMode *current_kb_mode;

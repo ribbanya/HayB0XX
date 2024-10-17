@@ -1,13 +1,13 @@
-#ifndef _MODES_RIVALSOFAETHER_HPP
-#define _MODES_RIVALSOFAETHER_HPP
+#ifndef _MODES_RIVALSOFAETHER2_HPP
+#define _MODES_RIVALSOFAETHER2_HPP
 
 #include "core/ControllerMode.hpp"
 #include "core/socd.hpp"
 #include "core/state.hpp"
 
-class RivalsOfAether : public ControllerMode 
+class RivalsOfAether2 : public ControllerMode {
   public:
-    RivalsOfAether(socd::SocdType socd_type)
+    RivalsOfAether2(socd::SocdType socd_type);
 
   private:
     void UpdateDigitalOutputs(InputState &inputs, OutputState &outputs);

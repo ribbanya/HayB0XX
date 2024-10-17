@@ -16,6 +16,8 @@
 #include "joybus_utils.hpp"
 #include "modes/GgstKeyboardMode.hpp"
 #include "modes/GgstMode.hpp"
+#include "modes/RabbitAndSteel.hpp"
+#include "modes/RivalsOfAether2.hpp"
 #include "modes/Melee20Button.hpp"
 #include "stdlib.hpp"
 
@@ -99,9 +101,9 @@ void setup() {
 
             primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP));
             return;
-        } else if (button_holds.z) {
+        } else if (!button_holds.z) {
             is_dinput = true;
-            // If no console detected and Z is held on plugin then use DInput backend.
+            // If no console detected and Z is not held on plugin then use DInput backend.
             TUGamepad::registerDescriptor();
             TUKeyboard::registerDescriptor();
             backend_count = 2;
@@ -131,7 +133,7 @@ void setup() {
     }
 
     if (is_dinput) {
-        set_mode(primary_backend, new GgstKeyboardMode());
+        set_mode(primary_backend, new RivalsOfAether2(SOCD_NEUTRAL));
     } else {
         set_mode(primary_backend, new GgstMode());
     }
