@@ -7,17 +7,17 @@
 RivalsOfAether2::RivalsOfAether2(socd::SocdType socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
-        socd::SocdPair{&InputState::left,    &InputState::right,   socd_type},
-        socd::SocdPair{ &InputState::down,   &InputState::up,      socd_type},
-        socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type},
-        socd::SocdPair{ &InputState::c_down, &InputState::c_up,    socd_type},
+        socd::SocdPair{ &InputState::left,   &InputState::right,   socd_type },
+        socd::SocdPair{ &InputState::down,   &InputState::b,      socd_type },
+        socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type },
+        socd::SocdPair{ &InputState::up, &InputState::c_up,    socd_type },
     };
 }
 
 void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.a = inputs.a;
-    outputs.b = inputs.b;
-    outputs.x = inputs.lightshield;
+    outputs.b = inputs.c_down;
+    outputs.x = inputs.x;
     outputs.y = inputs.y;
     outputs.buttonR = inputs.z;
     if (inputs.nunchuk_connected) {
@@ -26,9 +26,7 @@ void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outp
         outputs.triggerLDigital = inputs.l;
     }
     outputs.triggerRDigital = inputs.r;
-    outputs.start = inputs.start;
-    outputs.select = inputs.select;
-    outputs.home = inputs.home;
+    outputs.buttonL = inputs.lightshield;
     outputs.rightStickClick = inputs.midshield;
 
     // Activate D-Pad layer by holding Mod X + Mod Y.
@@ -38,6 +36,14 @@ void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outp
         outputs.dpadLeft = inputs.c_left;
         outputs.dpadRight = inputs.c_right;
     }
+
+    if (inputs.mod_x && !inputs.mod_y) {
+        outputs.select = inputs.start;
+    } else if (inputs.mod_y && !inputs.mod_x) {
+        outputs.home = inputs.start;
+    } else {
+        outputs.start = inputs.start;
+    }
 }
 
 void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
@@ -46,7 +52,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
         inputs.left,
         inputs.right,
         inputs.down,
-        inputs.x,
+        inputs.b,
         inputs.c_left,
         inputs.c_right,
         inputs.up,
@@ -59,7 +65,6 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
 
     bool shield_button_pressed = inputs.l || inputs.r;
 
-
     // 48 total DI angles, 24 total Up b angles, 16 total airdodge angles
 
     if (inputs.mod_x) {
@@ -71,7 +76,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
             }
         }
 
-        if(directions.vertical) {
+        if (directions.vertical) {
             outputs.leftStickY = 128 + (directions.y * 44);
             // MX Vertical Tilts
             if (inputs.a) {
@@ -95,12 +100,12 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
                 outputs.leftStickX = 128 + (directions.x * 52);
                 outputs.leftStickY = 128 + (directions.y * 31);
             }
-      
+
             if (inputs.c_up) {
                 outputs.leftStickX = 128 + (directions.x * 49);
                 outputs.leftStickY = 128 + (directions.y * 35);
             }
-     
+
             if (inputs.c_right) {
                 outputs.leftStickX = 128 + (directions.x * 51);
                 outputs.leftStickY = 128 + (directions.y * 43);
@@ -113,7 +118,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
             outputs.leftStickX = 128 + (directions.x * 44);
         }
 
-        if(directions.vertical) {
+        if (directions.vertical) {
             outputs.leftStickY = 128 + (directions.y * 67);
         }
 
@@ -133,12 +138,12 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
                 outputs.leftStickX = 128 + (directions.x * 44);
                 outputs.leftStickY = 128 + (directions.y * 74);
             }
-      
+
             if (inputs.c_up) {
                 outputs.leftStickX = 128 + (directions.x * 45);
                 outputs.leftStickY = 128 + (directions.y * 63);
             }
-     
+
             if (inputs.c_right) {
                 outputs.leftStickX = 128 + (directions.x * 47);
                 outputs.leftStickY = 128 + (directions.y * 57);
