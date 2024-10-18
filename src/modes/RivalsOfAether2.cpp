@@ -90,7 +90,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
             outputs.leftStickY = 128 + (directions.y * 23);
 
             // Angles just for DI and Up B
-            if (inputs.c_down) {
+            if (inputs.up) {
                 outputs.leftStickX = 128 + (directions.x * 49);
                 outputs.leftStickY = 128 + (directions.y * 24);
             }
@@ -128,7 +128,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
             outputs.leftStickY = 128 + (directions.y * 113);
 
             // Angles just for DI and Up B
-            if (inputs.c_down) {
+            if (inputs.up) {
                 outputs.leftStickX = 128 + (directions.x * 44);
                 outputs.leftStickY = 128 + (directions.y * 90);
             }
