@@ -16,10 +16,10 @@ RivalsOfAether2::RivalsOfAether2(socd::SocdType socd_type) {
 
 void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.a = inputs.a;
-    outputs.b = inputs.c_down;
+    outputs.b = inputs.z;
     outputs.x = inputs.x;
     outputs.y = inputs.y;
-    outputs.buttonR = inputs.z;
+    outputs.buttonR = inputs.c_down;
     if (inputs.nunchuk_connected) {
         outputs.triggerLDigital = inputs.nunchuk_z;
     } else {
@@ -32,7 +32,7 @@ void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outp
     // Activate D-Pad layer by holding Mod X + Mod Y.
     if (inputs.mod_x && inputs.mod_y) {
         outputs.dpadUp = inputs.c_up;
-        outputs.dpadDown = inputs.c_down;
+        outputs.dpadDown = inputs.up;
         outputs.dpadLeft = inputs.c_left;
         outputs.dpadRight = inputs.c_right;
     }
