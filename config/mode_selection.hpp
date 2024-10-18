@@ -1,13 +1,14 @@
 #ifndef _CONFIG_MODE_SELECTION_HPP
 #define _CONFIG_MODE_SELECTION_HPP
 
+#include "core/socd.hpp"
 #include "core/state.hpp"
 #include "modes/DefaultKeyboardMode.hpp"
 #include "modes/FgcMode.hpp"
 #include "modes/Melee20Button.hpp"
 #include "modes/ProjectM.hpp"
-#include "modes/RivalsOfAether2.hpp"
 #include "modes/RabbitAndSteel.hpp"
+#include "modes/RivalsOfAether2.hpp"
 #include "modes/Ultimate.hpp"
 
 extern KeyboardMode *current_kb_mode;
@@ -52,7 +53,7 @@ void select_mode(CommunicationBackend *backend) {
         } else if (inputs.right) {
             set_mode(backend, new FgcMode(socd::SOCD_NEUTRAL, socd::SOCD_NEUTRAL));
         } else if (inputs.b) {
-            set_mode(backend, new RivalsOfAether2(socd::SOCD_2IP));
+            set_mode(backend, new RivalsOfAether2(socd::SOCD_NEUTRAL, socd::SOCD_2IP));
         }
     } else if (inputs.mod_y && !inputs.mod_x && inputs.start) {
         if (inputs.l) {

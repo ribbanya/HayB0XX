@@ -133,7 +133,7 @@ void setup() {
     }
 
     if (is_dinput) {
-        set_mode(primary_backend, new RivalsOfAether2(socd::SOCD_NEUTRAL));
+        set_mode(primary_backend, new RivalsOfAether2(socd::SOCD_NEUTRAL, socd::SOCD_2IP));
     } else {
         set_mode(primary_backend, new GgstMode());
     }

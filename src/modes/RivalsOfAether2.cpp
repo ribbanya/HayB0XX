@@ -4,19 +4,19 @@
 #define ANALOG_STICK_NEUTRAL 128
 #define ANALOG_STICK_MAX 228
 
-RivalsOfAether2::RivalsOfAether2(socd::SocdType socd_type) {
+RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType rstick_socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
-        socd::SocdPair{ &InputState::left,   &InputState::right,   socd_type },
-        socd::SocdPair{ &InputState::down,   &InputState::b,      socd_type },
-        socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type },
-        socd::SocdPair{ &InputState::up, &InputState::c_up,    socd_type },
+        socd::SocdPair{ &InputState::left,   &InputState::right,   lstick_socd_type },
+        socd::SocdPair{ &InputState::down,   &InputState::z,       lstick_socd_type },
+        socd::SocdPair{ &InputState::c_left, &InputState::c_right, rstick_socd_type },
+        socd::SocdPair{ &InputState::up,     &InputState::c_up,    rstick_socd_type },
     };
 }
 
 void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
     outputs.a = inputs.a;
-    outputs.b = inputs.z;
+    outputs.b = inputs.b;
     outputs.x = inputs.x;
     outputs.y = inputs.y;
     outputs.buttonR = inputs.c_down;
@@ -52,7 +52,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
         inputs.left,
         inputs.right,
         inputs.down,
-        inputs.b,
+        inputs.z,
         inputs.c_left,
         inputs.c_right,
         inputs.up,
