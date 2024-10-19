@@ -15,19 +15,19 @@ RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType
 }
 
 void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
-    outputs.a = inputs.a;
-    outputs.b = inputs.b;
-    outputs.x = inputs.x;
+    outputs.a = inputs.b;
+    outputs.b = inputs.x;
+    outputs.x = inputs.r;
     outputs.y = inputs.y;
-    outputs.buttonR = inputs.c_down;
-    if (inputs.nunchuk_connected) {
-        outputs.triggerLDigital = inputs.nunchuk_z;
-    } else {
-        outputs.triggerLDigital = inputs.l;
-    }
-    outputs.triggerRDigital = inputs.r;
     outputs.buttonL = inputs.lightshield;
-    outputs.rightStickClick = inputs.midshield;
+    outputs.buttonR = inputs.midshield;
+    if (inputs.nunchuk_connected) {
+        outputs.leftStickClick = inputs.nunchuk_z;
+    } else {
+        outputs.leftStickClick = inputs.l;
+    }
+    outputs.triggerRDigital = inputs.a;
+    outputs.triggerLDigital = inputs.c_down;
 
     // Activate D-Pad layer by holding Mod X + Mod Y.
     if (inputs.mod_x && inputs.mod_y) {
