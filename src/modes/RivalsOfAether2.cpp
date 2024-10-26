@@ -1,8 +1,10 @@
 #include "modes/RivalsOfAether2.hpp"
 
-#define ANALOG_STICK_MIN 28
+#include <cstdint>
+
+#define ANALOG_STICK_MIN 0
 #define ANALOG_STICK_NEUTRAL 128
-#define ANALOG_STICK_MAX 228
+#define ANALOG_STICK_MAX 255
 
 RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType rstick_socd_type) {
     _socd_pair_count = 4;
@@ -63,94 +65,106 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
 
     // 48 total DI angles, 24 total Up b angles, 16 total airdodge angles
 
+    if (!inputs.mod_x && !inputs.mod_y) {
+        const uint8_t magnitude = 89;
+        if (directions.diagonal) {
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * magnitude);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * magnitude);
+        }
+        if (directions.cx != 0 && directions.cy != 0) {
+            outputs.rightStickX = ANALOG_STICK_NEUTRAL + (directions.cx * magnitude);
+            outputs.rightStickY = ANALOG_STICK_NEUTRAL + (directions.cy * magnitude);
+        }
+    }
+
     if (inputs.mod_x) {
         if (directions.horizontal) {
-            outputs.leftStickX = 128 + (directions.x * 66);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 66);
             // MX Horizontal Tilts
             if (inputs.a) {
-                outputs.leftStickX = 128 + (directions.x * 44);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
             }
         }
 
         if (directions.vertical) {
-            outputs.leftStickY = 128 + (directions.y * 44);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 44);
             // MX Vertical Tilts
             if (inputs.a) {
-                outputs.leftStickY = 128 + (directions.y * 67);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 67);
             }
         }
 
         /* Extra DI, Air Dodge, and Up B angles */
         if (directions.diagonal) {
-            outputs.leftStickX = 128 + (directions.x * 59);
-            outputs.leftStickY = 128 + (directions.y * 23);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 59);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 23);
 
             // Angles just for DI and Up B
             if (inputs.up) {
-                outputs.leftStickX = 128 + (directions.x * 49);
-                outputs.leftStickY = 128 + (directions.y * 24);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 49);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 24);
             }
 
             // Angles just for DI
             if (inputs.c_left) {
-                outputs.leftStickX = 128 + (directions.x * 52);
-                outputs.leftStickY = 128 + (directions.y * 31);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 52);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 31);
             }
 
             if (inputs.c_up) {
-                outputs.leftStickX = 128 + (directions.x * 49);
-                outputs.leftStickY = 128 + (directions.y * 35);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 49);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 35);
             }
 
             if (inputs.c_right) {
-                outputs.leftStickX = 128 + (directions.x * 51);
-                outputs.leftStickY = 128 + (directions.y * 43);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 51);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 43);
             }
         }
     }
 
     if (inputs.mod_y) {
         if (directions.horizontal) {
-            outputs.leftStickX = 128 + (directions.x * 44);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
         }
 
         if (directions.vertical) {
-            outputs.leftStickY = 128 + (directions.y * 67);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 67);
         }
 
         /* Extra DI, Air Dodge, and Up B angles */
         if (directions.diagonal) {
-            outputs.leftStickX = 128 + (directions.x * 44);
-            outputs.leftStickY = 128 + (directions.y * 113);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 113);
 
             // Angles just for DI and Up B
             if (inputs.up) {
-                outputs.leftStickX = 128 + (directions.x * 44);
-                outputs.leftStickY = 128 + (directions.y * 90);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 90);
             }
 
             // Angles just for DI
             if (inputs.c_left) {
-                outputs.leftStickX = 128 + (directions.x * 44);
-                outputs.leftStickY = 128 + (directions.y * 74);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 74);
             }
 
             if (inputs.c_up) {
-                outputs.leftStickX = 128 + (directions.x * 45);
-                outputs.leftStickY = 128 + (directions.y * 63);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 45);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 63);
             }
 
             if (inputs.c_right) {
-                outputs.leftStickX = 128 + (directions.x * 47);
-                outputs.leftStickY = 128 + (directions.y * 57);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 47);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 57);
             }
         }
     }
 
     // Shut off C-stick when using D-Pad layer.
     if (inputs.mod_x && inputs.mod_y) {
-        outputs.rightStickX = 128;
-        outputs.rightStickY = 128;
+        outputs.rightStickX = ANALOG_STICK_NEUTRAL;
+        outputs.rightStickY = ANALOG_STICK_NEUTRAL;
     }
 
     // Nunchuk overrides left stick.
