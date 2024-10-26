@@ -2,9 +2,9 @@
 
 #include <cstdint>
 
-#define ANALOG_STICK_MIN 0
+#define ANALOG_STICK_MIN 20
 #define ANALOG_STICK_NEUTRAL 128
-#define ANALOG_STICK_MAX 255
+#define ANALOG_STICK_MAX 236
 
 RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType rstick_socd_type) {
     _socd_pair_count = 4;
@@ -64,18 +64,6 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
     bool shield_button_pressed = inputs.l || inputs.r;
 
     // 48 total DI angles, 24 total Up b angles, 16 total airdodge angles
-
-    if (!inputs.mod_x && !inputs.mod_y) {
-        const uint8_t magnitude = 89;
-        if (directions.diagonal) {
-            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * magnitude);
-            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * magnitude);
-        }
-        if (directions.cx != 0 && directions.cy != 0) {
-            outputs.rightStickX = ANALOG_STICK_NEUTRAL + (directions.cx * magnitude);
-            outputs.rightStickY = ANALOG_STICK_NEUTRAL + (directions.cy * magnitude);
-        }
-    }
 
     if (inputs.mod_x) {
         if (directions.horizontal) {
@@ -159,6 +147,14 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
                 outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 57);
             }
         }
+    }
+
+    if (directions.x < 0) {
+        --outputs.leftStickX;
+    }
+
+    if (directions.y < 0) {
+        --outputs.leftStickY;
     }
 
     // Shut off C-stick when using D-Pad layer.
