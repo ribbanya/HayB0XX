@@ -23,6 +23,15 @@ XInputBackend::~XInputBackend() {
     delete _xinput;
 }
 
+static int16_t convertByte(uint8_t b) {
+    int16_t ret = (b - 128) * 256;
+
+    if (ret < 0)
+        ++ret;
+
+    return ret;
+}
+
 void XInputBackend::SendReport() {
     ScanInputs(InputScanSpeed::SLOW);
     ScanInputs(InputScanSpeed::MEDIUM);
@@ -54,10 +63,10 @@ void XInputBackend::SendReport() {
     _report.ls = _outputs.leftStickClick;
     _report.rs = _outputs.rightStickClick;
 
-    _report.lx = (_outputs.leftStickX - 127) * 256;
-    _report.ly = (_outputs.leftStickY - 127) * 256;
-    _report.rx = (_outputs.rightStickX - 127) * 256;
-    _report.ry = (_outputs.rightStickY - 127) * 256;
+    _report.lx = convertByte(_outputs.leftStickX);
+    _report.ly = convertByte(_outputs.leftStickY);
+    _report.rx = convertByte(_outputs.rightStickX);
+    _report.ry = convertByte(_outputs.rightStickY);
 
     _xinput->sendReport(&_report);
 }

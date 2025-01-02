@@ -18,7 +18,7 @@ RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType
         socd::SocdPair{ &InputState::left,   &InputState::right,   lstick_socd_type },
         socd::SocdPair{ &InputState::down,   &InputState::l,       lstick_socd_type },
         socd::SocdPair{ &InputState::c_left, &InputState::c_right, rstick_socd_type },
-        socd::SocdPair{ &InputState::z,     &InputState::c_up,    rstick_socd_type },
+        socd::SocdPair{ &InputState::z,      &InputState::c_up,    rstick_socd_type },
     };
 }
 
@@ -72,7 +72,16 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
     if (directions.diagonal) {
         outputs.leftStickX = ANALOG_STICK_NEUTRAL + directions.x * 90;
         outputs.leftStickY = ANALOG_STICK_NEUTRAL + directions.y * 90;
-    }   
+        // 34 = 0.000
+        // 35 = 0.006
+        // 36 = 0.019
+        // 39 = 0.058
+        // 40 = 0.071
+        // 63 = 0.372
+        // 94 = 0.777
+        // 126 = 1.000
+        // 127 = 1.000
+    }
 
     // 48 total DI angles, 24 total Up b angles, 16 total airdodge angles
 
