@@ -2,9 +2,15 @@
 
 #include <cstdint>
 
-#define ANALOG_STICK_MIN 20
+#define ANALOG_STICK_MAG 127
 #define ANALOG_STICK_NEUTRAL 128
-#define ANALOG_STICK_MAX 236
+#define ANALOG_STICK_MIN (ANALOG_STICK_NEUTRAL - ANALOG_STICK_MAG)
+#define ANALOG_STICK_MAX (ANALOG_STICK_NEUTRAL + ANALOG_STICK_MAG)
+
+#define TILT_MIN 51
+#define WALK_MIN 51
+#define WALK_MAX 94
+#define CROUCH_MIN 80
 
 RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType rstick_socd_type) {
     _socd_pair_count = 4;
@@ -12,7 +18,7 @@ RivalsOfAether2::RivalsOfAether2(socd::SocdType lstick_socd_type, socd::SocdType
         socd::SocdPair{ &InputState::left,   &InputState::right,   lstick_socd_type },
         socd::SocdPair{ &InputState::down,   &InputState::l,       lstick_socd_type },
         socd::SocdPair{ &InputState::c_left, &InputState::c_right, rstick_socd_type },
-        socd::SocdPair{ &InputState::up,     &InputState::c_up,    rstick_socd_type },
+        socd::SocdPair{ &InputState::z,     &InputState::c_up,    rstick_socd_type },
     };
 }
 
@@ -23,14 +29,14 @@ void RivalsOfAether2::UpdateDigitalOutputs(InputState &inputs, OutputState &outp
     outputs.y = inputs.y;
     outputs.buttonL = inputs.lightshield;
     outputs.buttonR = inputs.midshield;
-    outputs.rightStickClick = inputs.z;
+    outputs.rightStickClick = inputs.up;
     outputs.triggerRDigital = inputs.a;
     outputs.triggerLDigital = inputs.c_down;
 
     // Activate D-Pad layer by holding Mod X + Mod Y.
     if (inputs.mod_x && inputs.mod_y) {
         outputs.dpadUp = inputs.c_up;
-        outputs.dpadDown = inputs.up;
+        outputs.dpadDown = inputs.z;
         outputs.dpadLeft = inputs.c_left;
         outputs.dpadRight = inputs.c_right;
     }
@@ -53,7 +59,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
         inputs.l,
         inputs.c_left,
         inputs.c_right,
-        inputs.up,
+        inputs.z,
         inputs.c_up,
         ANALOG_STICK_MIN,
         ANALOG_STICK_NEUTRAL,
@@ -63,61 +69,66 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
 
     bool shield_button_pressed = inputs.l || inputs.r;
 
+    if (directions.diagonal) {
+        outputs.leftStickX = ANALOG_STICK_NEUTRAL + directions.x * 90;
+        outputs.leftStickY = ANALOG_STICK_NEUTRAL + directions.y * 90;
+    }   
+
     // 48 total DI angles, 24 total Up b angles, 16 total airdodge angles
 
     if (inputs.mod_x) {
         if (directions.horizontal) {
-            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 66);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + directions.x * WALK_MAX;
             // MX Horizontal Tilts
             if (inputs.a) {
-                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * TILT_MIN);
             }
         }
 
         if (directions.vertical) {
-            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 44);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + directions.y * 64;
             // MX Vertical Tilts
             if (inputs.a) {
-                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 67);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * TILT_MIN);
             }
         }
 
         /* Extra DI, Air Dodge, and Up B angles */
         if (directions.diagonal) {
-            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 59);
-            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 23);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 113);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 44);
 
             // Angles just for DI and Up B
-            if (inputs.up) {
-                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 49);
-                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 24);
+            if (inputs.z) {
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 90);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 44);
             }
 
             // Angles just for DI
             if (inputs.c_left) {
-                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 52);
-                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 31);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 74);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 44);
             }
 
             if (inputs.c_up) {
-                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 49);
-                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 35);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 63);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 45);
             }
 
             if (inputs.c_right) {
-                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 51);
-                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 43);
+                outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 57);
+                outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 47);
             }
         }
     }
 
     if (inputs.mod_y) {
         if (directions.horizontal) {
-            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
+            outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * WALK_MIN);
         }
 
         if (directions.vertical) {
-            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 67);
+            outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * CROUCH_MIN);
         }
 
         /* Extra DI, Air Dodge, and Up B angles */
@@ -126,7 +137,7 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
             outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 113);
 
             // Angles just for DI and Up B
-            if (inputs.up) {
+            if (inputs.z) {
                 outputs.leftStickX = ANALOG_STICK_NEUTRAL + (directions.x * 44);
                 outputs.leftStickY = ANALOG_STICK_NEUTRAL + (directions.y * 90);
             }
