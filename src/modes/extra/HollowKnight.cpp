@@ -43,4 +43,6 @@ void HollowKnight::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs)
         ANALOG_STICK_MAX,
         outputs
     );
+
+    ConvertAnalogOutputs(outputs);
 }

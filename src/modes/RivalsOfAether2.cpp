@@ -188,4 +188,6 @@ void RivalsOfAether2::UpdateAnalogOutputs(InputState &inputs, OutputState &outpu
         outputs.leftStickX = inputs.nunchuk_x;
         outputs.leftStickY = inputs.nunchuk_y;
     }
+
+    ConvertAnalogOutputs(outputs);
 }

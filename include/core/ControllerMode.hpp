@@ -10,6 +10,7 @@ class ControllerMode : public InputMode {
     ControllerMode();
     void UpdateOutputs(InputState &inputs, OutputState &outputs);
     void ResetDirections();
+    void ConvertAnalogOutputs(OutputState &outputs, uint8_t analogStickNeutral = 128);
     virtual void UpdateDirections(
         bool lsLeft,
         bool lsRight,

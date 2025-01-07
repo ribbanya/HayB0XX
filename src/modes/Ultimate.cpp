@@ -8,10 +8,10 @@
 Ultimate::Ultimate(socd::SocdType socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
-        socd::SocdPair{&InputState::left,    &InputState::right,   socd_type},
-        socd::SocdPair{ &InputState::down,   &InputState::up,      socd_type},
-        socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type},
-        socd::SocdPair{ &InputState::c_down, &InputState::c_up,    socd_type},
+        socd::SocdPair{ &InputState::left,   &InputState::right,   socd_type },
+        socd::SocdPair{ &InputState::down,   &InputState::up,      socd_type },
+        socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type },
+        socd::SocdPair{ &InputState::c_down, &InputState::c_up,    socd_type },
     };
 }
 
@@ -276,4 +276,6 @@ void Ultimate::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         outputs.leftStickX = inputs.nunchuk_x;
         outputs.leftStickY = inputs.nunchuk_y;
     }
+
+    ConvertAnalogOutputs(outputs);
 }

@@ -67,4 +67,6 @@ void DarkSouls::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         outputs.leftStickX = inputs.nunchuk_x;
         outputs.leftStickY = inputs.nunchuk_y;
     }
+
+    ConvertAnalogOutputs(outputs);
 }

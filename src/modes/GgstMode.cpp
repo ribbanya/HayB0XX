@@ -9,8 +9,8 @@
 GgstMode::GgstMode() {
     _socd_pair_count = 2;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
-        socd::SocdPair{&InputState::left,  &InputState::right},
-        socd::SocdPair{ &InputState::down, &InputState::mod_x},
+        socd::SocdPair{ &InputState::left, &InputState::right },
+        socd::SocdPair{ &InputState::down, &InputState::mod_x },
     };
 }
 
@@ -54,4 +54,6 @@ void GgstMode::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
     outputs.rightStickY = ANALOG_STICK_NEUTRAL;
     outputs.triggerLAnalog = outputs.triggerLDigital ? 255 : 0;
     outputs.triggerRAnalog = outputs.triggerRDigital ? 255 : 0;
+
+    ConvertAnalogOutputs(outputs);
 }

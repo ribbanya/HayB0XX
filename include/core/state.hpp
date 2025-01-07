@@ -70,10 +70,10 @@ typedef struct outputstate {
     bool rightStickClick = false;
 
     // Analog outputs.
-    uint8_t leftStickX = 128;
-    uint8_t leftStickY = 128;
-    uint8_t rightStickX = 128;
-    uint8_t rightStickY = 128;
+    int16_t leftStickX;
+    int16_t leftStickY;
+    int16_t rightStickX;
+    int16_t rightStickY;
     uint8_t triggerRAnalog = 0;
     uint8_t triggerLAnalog = 0;
 } OutputState;

@@ -1,5 +1,7 @@
 #include "core/ControllerMode.hpp"
 
+#include "core/state.hpp"
+
 ControllerMode::ControllerMode() {
     // Set up initial state.
     ResetDirections();
@@ -21,6 +23,17 @@ void ControllerMode::ResetDirections() {
         .cx = 0,
         .cy = 0,
     };
+}
+
+static int16_t convertAnalogStick(int16_t value) {
+    return (value - 128) * 256;
+}
+
+void ControllerMode::ConvertAnalogOutputs(OutputState &outputs, uint8_t analogStickNeutral) {
+    outputs.leftStickX = convertAnalogStick(outputs.leftStickX);
+    outputs.leftStickY = convertAnalogStick(outputs.leftStickY);
+    outputs.rightStickX = convertAnalogStick(outputs.rightStickX);
+    outputs.rightStickY = convertAnalogStick(outputs.rightStickY);
 }
 
 void ControllerMode::UpdateDirections(
