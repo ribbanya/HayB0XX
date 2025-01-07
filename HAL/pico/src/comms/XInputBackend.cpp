@@ -24,7 +24,7 @@ XInputBackend::~XInputBackend() {
 }
 
 static int16_t convertByte(uint8_t b) {
-    int16_t ret = (b - 128) * 256;
+    int16_t ret = b * 257 - 32768;
 
     if (ret < 0)
         ++ret;

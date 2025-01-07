@@ -16,9 +16,9 @@
 #include "joybus_utils.hpp"
 #include "modes/GgstKeyboardMode.hpp"
 #include "modes/GgstMode.hpp"
+#include "modes/Melee20Button.hpp"
 #include "modes/RabbitAndSteel.hpp"
 #include "modes/RivalsOfAether2.hpp"
-#include "modes/Melee20Button.hpp"
 #include "stdlib.hpp"
 
 #include <pico/bootrom.h>
@@ -28,31 +28,31 @@ size_t backend_count;
 KeyboardMode *current_kb_mode = nullptr;
 
 GpioButtonMapping button_mappings[] = {
-    {&InputState::l,            6 },
-    { &InputState::left,        7 },
-    { &InputState::down,        8 },
-    { &InputState::right,       9 },
+    { &InputState::l,           6  },
+    { &InputState::left,        7  },
+    { &InputState::down,        8  },
+    { &InputState::right,       9  },
 
-    { &InputState::mod_x,       10},
-    { &InputState::mod_y,       11},
+    { &InputState::mod_x,       10 },
+    { &InputState::mod_y,       11 },
 
-    { &InputState::start,       12},
+    { &InputState::start,       12 },
 
-    { &InputState::c_left,      14},
-    { &InputState::c_up,        13},
-    { &InputState::c_down,      27},
-    { &InputState::a,           28},
-    { &InputState::c_right,     15},
+    { &InputState::c_left,      14 },
+    { &InputState::c_up,        13 },
+    { &InputState::c_down,      27 },
+    { &InputState::a,           28 },
+    { &InputState::c_right,     15 },
 
-    { &InputState::b,           19},
-    { &InputState::x,           18},
-    { &InputState::z,           17},
-    { &InputState::up,          16},
+    { &InputState::b,           19 },
+    { &InputState::x,           18 },
+    { &InputState::z,           17 },
+    { &InputState::up,          16 },
 
-    { &InputState::r,           26},
-    { &InputState::y,           22},
-    { &InputState::lightshield, 21},
-    { &InputState::midshield,   20},
+    { &InputState::r,           26 },
+    { &InputState::y,           22 },
+    { &InputState::lightshield, 21 },
+    { &InputState::midshield,   20 },
 };
 size_t button_count = sizeof(button_mappings) / sizeof(GpioButtonMapping);
 
@@ -101,7 +101,7 @@ void setup() {
 
             primary_backend->SetGameMode(new Melee20Button(socd::SOCD_2IP));
             return;
-        } else if (!button_holds.z) {
+        } else if (button_holds.z) {
             is_dinput = true;
             // If no console detected and Z is not held on plugin then use DInput backend.
             TUGamepad::registerDescriptor();
@@ -132,11 +132,7 @@ void setup() {
         backends = new CommunicationBackend *[backend_count] { primary_backend };
     }
 
-    if (is_dinput) {
-        set_mode(primary_backend, new RivalsOfAether2(socd::SOCD_NEUTRAL, socd::SOCD_2IP));
-    } else {
-        set_mode(primary_backend, new GgstMode());
-    }
+    set_mode(primary_backend, new RivalsOfAether2(socd::SOCD_NEUTRAL, socd::SOCD_2IP));
 }
 
 void loop() {
